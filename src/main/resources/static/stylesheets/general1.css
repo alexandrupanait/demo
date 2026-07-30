@@ -1,0 +1,90 @@
+#center {
+	position:absolute;
+	left: 0px;
+	top: 150px;
+	background-color: #faf; 
+	border:1px solid; 
+	width: 900px; 
+	height: 500px;
+}
+
+#bottom {
+	position:absolute;
+	left:0px;
+	top:650px;
+	background-color: #aff; 
+	border:1px solid; 
+	width: 900px; 
+	height: 50px;	
+}
+
+#center_promo {
+	position: absolute;
+	left: 0px;
+	top: 0px;	
+	background-color: #cfc; 
+	border:1px solid; 
+	width: 899px; 
+	height: 150px;
+}
+
+#center_one_client {
+	position: absolute;
+	left: 0px;
+	top: 150px;	
+	background-color: #ccc; 
+	border:1px solid; 
+	width: 720px; 
+	height: 350px;	
+}
+
+#center_client1 {
+	position: absolute;
+	left: 0px;
+	top: 150px;	
+	background-color: #ccc; 
+	border:1px solid; 
+	width: 180px; 
+	height: 350px;
+}
+
+#center_client2 {
+	position: absolute;
+	left: 180px;
+	top: 150px;	
+	background-color: #ccb; 
+	border:1px solid; 
+	width: 180px; 
+	height: 350px;
+}
+
+#center_client3 {
+	position: absolute;
+	left: 360px;
+	top: 150px;	
+	background-color: #cca; 
+	border:1px solid; 
+	width: 180px; 
+	height: 350px;
+}
+
+#center_client4 {
+	position: absolute;
+	left: 540px;
+	top: 150px;	
+	background-color: #cc9; 
+	border:1px solid; 
+	width: 180px; 
+	height: 350px;
+}
+
+#center_quick_link {
+	position: absolute;
+	left: 720px;
+	top: 150px;	
+	background-color: #cb9; 
+	border:1px solid; 
+	width: 180px; 
+	height: 350px;
+}
+

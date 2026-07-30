@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ro" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: head('RAL | Produse si solutii pentru retele de date')}"></head>
+<body id="Home">
+
+<div th:replace="~{fragments/chrome :: header}"></div>
+
+<div class="c1v2" style="text-align:left;">
+    <div style="height: 180px;">
+        <img alt="" th:src="@{/images/ral-left-1.png}" />
+    </div>
+    <div style="font-size: 11px; margin: 10px; width: 240px; text-align: center; border-radius: 5px 5px 15px 15px; border: 1px solid #ddd; background: #eee; height: 70px;">
+        <br/><b>Produse si solutii competitive<br> pentru dezvoltarea retelelor de date</b>
+    </div>
+</div>
+
+<div class="c2v2">
+    <div style="width: 700px; height: 42px; padding: 5px 0 0 0;">
+        <img alt="Title_1" th:src="@{/images/title_1.png}" />
+    </div>
+</div>
+
+<div class="subHeader_clearAll"></div>
+
+<div class="Spacer">&nbsp;</div>
+
+<div class="Success">
+    <a th:href="@{/presentation}"><img alt="Home_success_ro" th:src="@{/images/home_success_ro.png}" /></a>
+    <p><font face="tahoma,arial,helvetica,sans-serif" size="2"><font color="#FF6C00"><strong>Romtelecom</strong></font>&nbsp;-&nbsp;</font><font face="tahoma, arial, helvetica, sans-serif" size="2">implementare solutie xDSL ZyXEL, furnizare de Internet in zone cu densitatea mica</font></p>
+    <p><font face="tahoma,arial,helvetica,sans-serif" size="2"><font color="#FF6C00"><strong>Vodafone&nbsp;</strong></font>-&nbsp;</font><font face="tahoma, arial, helvetica, sans-serif" size="2">proiect de dezvoltare a retelei de fibra optica cu produse marca CTC Union</font></p>
+    <p><font face="tahoma,arial,helvetica,sans-serif" size="2"><span style="font-weight: bold; color: #ff6c00">Digital Cable Systems</span> -&nbsp;</font><font face="tahoma, arial, helvetica, sans-serif" size="2">implementare retea de voce cu gateway-uri marca AudioCodes</font></p>
+    <p><font face="tahoma,arial,helvetica,sans-serif" size="2"><font color="#FF6C00"><strong>RCS&amp;RDS</strong></font>&nbsp;-&nbsp;</font><font face="tahoma, arial, helvetica, sans-serif" size="2">solutii de transport si acces E1 cu produse CTC Union</font></p>
+</div>
+
+<div class="Portfolio">
+    <a th:href="@{/produse}"><img alt="Home_portfolio_ro" th:src="@{/images/home_portfolio_ro.png}" /></a>
+    <div class="Images" style="margin-left:20px">
+        <img alt="Home_portfolio_products" th:src="@{/images/home_portfolio_products.jpg}" />
+    </div>
+    <p><a th:href="@{/produse}">&raquo; retelistica</a></p>
+    <p><a th:href="@{/produse}">&raquo; routere &amp; firewall</a></p>
+    <p><a th:href="@{/produse}">&raquo; pasive cupru</a></p>
+    <p><a th:href="@{/produse}">&raquo; fibra optica</a></p>
+    <p><a th:href="@{/produse}">&raquo; xDSL</a></p>
+    <p><a th:href="@{/produse}">&raquo; wireless</a></p>
+    <p><a th:href="@{/produse}">&raquo; E1</a></p>
+    <p><a th:href="@{/produse}">&raquo; VoIP</a></p>
+    <p><a th:href="@{/produse}">&raquo; UPS</a></p>
+</div>
+
+<div class="News">
+    <a th:href="@{/info}"><img alt="Home_news_ro" th:src="@{/images/home_news_ro.png}" /></a>
+    <div style="margin-top:15px; border-bottom:1px dotted black;">
+        <div style="float:left;color:#FF6C00;font-size:11px; width:70px; padding-top:2px">30 Iul 2026</div>
+        <div style="float:left; width:230px; background-color: #fff; border:0px solid red; border-radius: 3px">
+            <img align="right" alt="Excl1" th:src="@{/images/excl1.jpg}" />
+            <a th:href="@{/info}">Bine ati venit pe noul site RAL - in constructie</a>
+        </div>
+        <div style="clear:both;"></div>
+        <br/>
+        <div style="clear:both; height:12px;">&nbsp;</div>
+    </div>
+    <div style="margin-top:20px; font-size:11px;width:100%; float:right; text-align:justify">
+        Introduceti adresa Dvs. de e-mail pentru a primi stiri despre cele mai recente promotii si produse RAL:
+        <br />
+        <form th:action="@{/home/subscription}" id="subscribe_form" method="post" name="subscribe_form">
+            <input type="hidden" id="subscribe_pressed" name="subscribe_pressed" value="no" />
+            <input type="text" name="e_mail" style="float:left; text-align:left; width:279px; height:16px; border:1px solid #999; border-right:0" />
+            <input alt="Abonare" id="subscribe" name="subscribe" type="image" th:src="@{/images/play.jpg}" style="float:left; cursor:pointer;" title="Abonare" />
+            <div class="Clear0"></div>
+        </form>
+    </div>
+</div>
+
+<div class="Clear">&nbsp;</div>
+
+<div th:replace="~{fragments/chrome :: footer}"></div>
+
+</body>
+</html>

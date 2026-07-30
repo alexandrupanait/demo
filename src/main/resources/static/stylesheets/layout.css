@@ -1,0 +1,122 @@
+.tail-top{}
+.tail-bottom{ }
+.right_bgd { position:absolute; top:0; right:0; width:50%; height:300px; }
+
+.col-1, .col-2, .col-12, .col-3, .col-4, .col1, .col2, .col3, .col4{float:left}
+/*======= width =======*/
+
+.main{margin:0 auto; text-align:left;width:1000px; position:relative;}
+
+/*======= header =======*/
+#header1 {height:200px;  background:url(../images/header1000.jpg) no-repeat top center;}
+#header2 {height:200px;  background:url(../images/header1001.jpg) no-repeat top center;}
+#header3 {height:200px;  background:url(../images/header1002.jpg) no-repeat top center;}
+#header4 {height:200px;  background:url(../images/header1004.jpg) no-repeat top center;}
+#header5 {height:200px;  background:url(../images/header1005.jpg) no-repeat top center;}
+#header6 {height:200px;  background:url(../images/header1006.jpg) no-repeat top center;}
+#header7 {height:200px;  background:url(../images/header1007.jpg) no-repeat top center;}
+#header8 {height:200px;  background:url(../images/header1008.jpg) no-repeat top center;}
+#header9 {height:200px;  background:url(../images/header1009.jpg) no-repeat top center;}
+#header10 {height:200px;  background:url(../images/header1010.jpg) no-repeat top center;}
+#header12 {height:200px;  background:url(../images/header1011.jpg) no-repeat top center;}
+#header11 {height:200px;  background:url(../images/test_header_400.jpg) no-repeat top center;}
+/*#home2 #header {height:250px;  background:url(../images/header3.jpg) no-repeat top center}
+#page7 #header {height:250px; background:url(../images/test_header2.jpg) no-repeat top center}
+#CMS   #header {height:150px; background:url(../images/cms.jpg) no-repeat top center}
+*/
+#CMS .tail-top{ background: #fff}
+#CMS .right_bgd { position:absolute; top:0; right:0; width:50%; height:150px; background:#FFFFFF}
+#home4 #header {height:300px;  background:url(../images/top1_200_s7.jpg) no-repeat top center}
+#home5 #header {height:300px;  background:url(../images/top1_200_s8.jpg) no-repeat top center}
+#home3 #header {height:300px;  background:url(../images/top1_200_s9.jpg) no-repeat top center}
+
+#content {min-height:350px;}
+#content .col1{ width:200px; margin-right:15px}
+#content .col2{ width:200px;}
+#content .col3{ width:630px; margin-right:15px}
+#content .col4{ width:125px}
+
+#content .col-1{ width:125px}
+#content .col-12{ width:10px; margin-right:5px; height:100%; min-height:300px; border-right:1px solid#999; float:left}
+#content .col-2{ width:700px; padding-left:30px}
+
+#products #content .col-1{ width:200px; }
+#products #content .col-12{ width:10px; margin-right:5px; height:100%; min-height:300px; border-right:1px solid#999; float:left}
+#products #content .col-2{ width:600px; margin-left:40px;}
+
+/*======== help page====*/
+#help #content .col-1{ width:200px; height:100%; float:left;margin-right:30px}
+#help #content .col-2{ width:600px;padding-left:30px; float:left}
+/*======== about page====*/
+
+/*======== login page====*/
+#login #content {margin-top:30px; position:absolute; }
+#login #content .col1row12{width:260px; margin-right:15px; position:absolute; }
+#login #content .col2row1{width:260px; position:absolute; margin-left:275px; height:150px; }
+#login #content .col3row1{width:290px; position:absolute;  margin-left:565px; margin-top:10px; }
+#login #content .col23row2{width:580px; position:absolute; margin-left:275px; margin-top: 160px; }
+
+/*======== register page====*/
+#register #content .col-1{ width:210px; margin-right:20px;}
+#register #content .col-2{ width:620px}
+
+#ralonline #content .col-1{ width:250px;}
+#ralonline #content .col-2{ width:100px; float:left}
+
+/*======== products details========*/
+#product-details #content .col-1{float:left; width:200px;}
+#product-details #content .col-2{float:left; width:630px;padding-left:30px;}
+#product-details #content .product-name {width:100%; padding-bottom:20px}
+#product-details #content .product-image {float:left; width:330px; max-height:200px; overflow:hidden; border:1px solid#999}
+#product-details #content .product-box {float:left; width:270px;}
+#product-details #content .section-title{float:left; width: 100%;}
+#product-details #content .section-content{float:left; width: 100%;}
+
+#product-details #content .title{text-align:center;width:397px;padding-top:3px;font-size:11px;font-weight:bold; color:#000000;height:30px;background:url(../images/bkg_titlu_produs.jpg) left bottom no-repeat }
+
+/*======= news details =======*/
+#news-details .col-1{float:left; width:250px;}
+#news-details .col-2{float:left; width:600px;}
+
+/*======= home1 =======*/
+#home #content .col-1{ width:246px; margin-right:66px}
+#home #content .col-2{ width:250px; margin-right:63px}
+#home #content .col-3{ width:246px}
+#home #content .col-4{ width:600px}
+
+/*======= home2 =======*/
+#home2 .col1{ width:300px; overflow:hidden; margin-right:20px}
+#home2 .col2{ width:300px; overflow:hidden; }
+#home2 #content .col-1{ width:246px; margin-right:66px}
+#home2 #content .col-2{ width:250px; margin-right:63px}
+#home2 #content .col-3{ width:206px}
+/*======= home3 =======*/
+#home3 .col1{ width:297px; overflow:hidden; margin-right:15px}
+#home3 .col2{ width:297px; overflow:hidden; }
+#home3 #content .col-1{ width:246px; margin-right:66px}
+#home3 #content .col-2{ width:250px; margin-right:63px}
+#home3 #content .col-3{ width:246px}
+
+/*======= index-1.html =======*/
+#furnizori #content .col-1{width:100%;}
+
+/*======= ERP(cms) =======*/
+#ERP #content .col-1{ width:100px; margin-right:10px}
+#ERP #content .col-2{ width:820px; margin-right:0px;}
+
+/*======= Solutions =======*/
+#solutions #content .col-1{ width:220px;}
+#solutions #content .col-2{ width:600px; margin-left:30px;margin-bottom:20px}
+
+/*======= index-3.html =======*/
+#page4 #content .col-1{ width:246px; margin-right:66px;}
+#page4 #content .col-2{ width:250px; margin-right:63px;}
+#page4 #content .col-3{ width:246px}
+/*======= index-6.html =======*/
+#page7 #content .col-1{ width:555px; margin-right:18px}
+#page7 #content .col-2{ width:240px}
+#page7 #content .col-3{ width:210px; margin-right:50px}
+#page7 #content .col-4{ width:201px}
+
+/*======= footer =======*/
+#footer {width:980px; height:60px; background:url(../images/footer.jpg) no-repeat bottom center;}

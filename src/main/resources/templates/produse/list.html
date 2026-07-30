@@ -1,44 +1,134 @@
 <!DOCTYPE html>
 <html lang="ro" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Produse</title>
-    <link rel="stylesheet" th:href="@{/css/style.css}">
-</head>
-<body>
-    <nav>
-        <a th:href="@{/}">Home</a>
-        <a th:href="@{/produse}">Produse</a>
-    </nav>
+<head th:replace="~{fragments/head :: head('Produse | RAL')}"></head>
+<body id="ProductList">
 
-    <div class="layout">
-        <aside>
-            <a th:href="@{/produse}" class="all-products">Toate produsele</a>
-            <div th:insert="~{fragments/category-tree :: tree(${categoryTree}, ${selectedCategorie})}"></div>
-        </aside>
+<div th:replace="~{fragments/chrome :: header}"></div>
 
-        <main>
-    <h1>Produse</h1>
+<div class="Menu">
+    <div th:replace="~{fragments/category-tree :: menu(${categoryTree}, ${selectedCategorie})}"></div>
+</div>
 
-    <table>
-        <thead>
-            <tr>
-                <th>Cod</th>
-                <th>Nume</th>
-                <th>Categorie</th>
-                <th>Producator</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr th:each="produs : ${produse}">
-                <td th:text="${produs.cod}"></td>
-                <td th:text="${produs.nume}"></td>
-                <td th:text="${produs.categorie != null ? produs.categorie.nume : '-'}"></td>
-                <td th:text="${produs.codProducator}"></td>
-            </tr>
-        </tbody>
+<div class="Spacer"></div>
+
+<div class="ProductContent">
+    <th:block th:each="produs : ${rezultat.produse}">
+        <div class="Content">
+            <div class="Name">
+                <h3><a href="#" title="Detalii produs (in curand)" th:text="${produs.numeAfisat}"></a></h3>
+                <h3 style="font-size:12px">Cod:&nbsp;<a href="#" th:text="${produs.cod}"></a>
+                    &nbsp; &nbsp; Producator:&nbsp;<span th:text="${produs.codProducator}"></span></h3>
+            </div>
+            <div class="Img">
+                <table><td align="center" style="width:142px; height: 142px;">
+                    <a href="#"><img th:alt="${produs.numeAfisat}" th:src="@{${produs.thumb}}" width="142px" /></a>
+                </td></table>
+            </div>
+            <div class="Info">
+                <p th:text="${#strings.abbreviate(produs.infoWeb ?: '', 80)}"></p>
+            </div>
+        </div>
+        <div class="BuyBox">
+            <p>
+                <span class="Price" th:text="|${rezultat.pretPentru(produs.id)} RON|"></span>
+                <br/>cu TVA<br/><br/>
+                <span class="GrayBold">Garantie</span><br/>
+                <span class="Blue">
+                    <th:block th:if="${produs.garantie != null and produs.garantie != 0}" th:text="|${produs.garantie} luni|"></th:block>
+                    <th:block th:unless="${produs.garantie != null and produs.garantie != 0}">fara garantie</th:block>
+                </span><br/>
+                <span class="GrayBold">Disponibilitate</span><br/>
+                <span class="Blue" th:text="${produs.disponibil} ? 'in stoc' : 'la comanda'"></span><br/><br/>
+            </p>
+            <div th:class="${produs.disponibil} ? 'Stock' : 'NoStock'">
+                <input type="submit" value="Adauga in cos" th:disabled="${!produs.disponibil}" />
+            </div>
+            <div class="Details">
+                <a href="#" title="Detalii produs (in curand)">Detalii &raquo;</a>
+            </div>
+        </div>
+    </th:block>
+    <div style="clear:both;">&nbsp;</div>
+    <p th:if="${#lists.isEmpty(rezultat.produse)}">Niciun produs nu corespunde filtrelor selectate.</p>
+</div>
+
+<div class="Spacer">&nbsp;</div>
+
+<div class="Filters">
+    <table width="160" border="0" cellspacing="0" cellpadding="0">
+        <tr><td class="Header" align="left" valign="middle">Filtrare</td></tr>
+        <tr><td class="Main">
+            <form class="FormFilters" method="get" th:action="@{/produse}">
+                <input type="hidden" name="categorie" th:if="${selectedCategorie != null}" th:value="${selectedCategorie}" />
+
+                <h3 class="handcursor">Ordine</h3>
+                <div class="InfoHolder">
+                    <select name="sort" onchange="this.form.submit()">
+                        <option value="rec_ral" th:selected="${filtru.sort == 'rec_ral'}">Recomandare RAL</option>
+                        <option value="price_desc" th:selected="${filtru.sort == 'price_desc'}">Pret descrescator</option>
+                        <option value="price_asc" th:selected="${filtru.sort == 'price_asc'}">Pret crescator</option>
+                    </select>
+                </div>
+                <div class="Separator"></div>
+
+                <h3 class="handcursor">Produs</h3>
+                <div class="InfoHolder">
+                    <input type="text" name="nume" th:value="${filtru.nameFilter}" style="width:100px;height:12px;margin-top:2px;" />
+                    <input type="submit" value="cauta" />
+                </div>
+                <div class="Separator"></div>
+
+                <h3 class="handcursor">Furnizor</h3>
+                <div class="InfoHolder">
+                    <select name="producator" onchange="this.form.submit()">
+                        <option value="">Toti</option>
+                        <option th:each="s : ${rezultat.suppliers}" th:value="${s.cod}"
+                                th:text="|${s.cod} (${s.count})|"
+                                th:selected="${filtru.producatorCod == s.cod}"></option>
+                    </select>
+                </div>
+                <div class="Separator"></div>
+
+                <h3 class="handcursor">Stoc</h3>
+                <div class="InfoHolder">
+                    <select name="disponibile" onchange="this.form.submit()">
+                        <option value="false" th:selected="${!filtru.doarDisponibile}">Toate</option>
+                        <option value="true" th:selected="${filtru.doarDisponibile}">Doar disponibile</option>
+                    </select>
+                </div>
+                <div class="Separator"></div>
+
+                <h3 class="handcursor">Pret (RON)</h3>
+                <div class="InfoHolder">
+                    <input type="text" name="pretMin" th:value="${filtru.pretMin}" class="Boxes" placeholder="min" />
+                    <input type="text" name="pretMax" th:value="${filtru.pretMax}" class="Boxes" placeholder="max" />
+                    <input type="submit" value="ok" />
+                </div>
+                <div class="Separator"></div>
+
+                <th:block th:each="grup : ${rezultat.attributeGroups}">
+                    <h3 class="handcursor" th:text="${grup.nume}"></h3>
+                    <div class="InfoHolder">
+                        <th:block th:each="v : ${grup.valori}">
+                            <input type="checkbox" th:name="|attr_${grup.nume}|" th:value="${v.value}"
+                                   th:checked="${v.checked}" onchange="this.form.submit()" />
+                            <label th:text="${v.value}"></label>
+                            <label style="padding-right:5px;color:#ff6d00;" th:text="|(${v.count})|"></label>
+                            <br/>
+                        </th:block>
+                    </div>
+                    <div class="Separator"></div>
+                </th:block>
+
+                <a th:href="@{/produse(categorie=${selectedCategorie})}">Sterge filtrele</a>
+            </form>
+        </td></tr>
     </table>
-        </main>
-    </div>
+</div>
+
+<div style="clear:both;">&nbsp;</div>
+
+<div th:replace="~{fragments/chrome :: footer}"></div>
+
 </body>
 </html>

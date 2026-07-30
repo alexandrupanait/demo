@@ -1,0 +1,36 @@
+.readonly-text{
+	border:none;	
+	background-color:#0081b3;
+	width:400px;		
+	height:40px;
+	font-size:14px;
+	font-weight:bold;
+	text-align:right;	
+	vertical-align:middle;
+	padding-top:20px;
+	padding-right:20px;
+}
+.editable-text{
+	border:1px solid#999999;
+	width:200px;	
+	height:14px;	
+	padding-left:10px;
+	padding-right:10px;	
+}
+.list-element{
+	border:none;		
+	width:200px;
+	height:15px;		
+	background:none;
+	cursor:default;
+}
+
+.link{
+	background:none;
+	border:none;
+	font-weight:bold;
+	color:#1100FF;
+	text-decoration:none;
+	cursor:hand;
+	text-decoration:underline;
+}

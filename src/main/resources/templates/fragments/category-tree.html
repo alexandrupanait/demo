@@ -1,14 +1,27 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <body>
-    <ul th:fragment="tree(categories, selected)">
-        <li th:each="c : ${categories}">
-            <a th:href="@{/produse(categorie=${c.id})}"
-               th:text="${c.nume}"
-               th:classappend="${selected != null and selected == c.id} ? 'active'"></a>
-            <div th:if="${not #lists.isEmpty(c.children)}"
-                 th:insert="~{fragments/category-tree :: tree(${c.children}, ${selected})}"></div>
-        </li>
-    </ul>
+    <!-- Mirrors the old _category_tree.html.erb: only 2 levels are shown
+         (top category as a CategoryOn/CategoryOff box, its direct children
+         as a flat span list) - the old UI never nested further than that. -->
+    <div th:fragment="menu(categoryTree, selected)" id="MenuList">
+        <div class="Header">&nbsp;&nbsp;&nbsp;
+            <a th:href="@{/produse}">Produse</a>
+        </div>
+        <th:block th:each="c : ${categoryTree}">
+            <div th:class="${selected != null and selected == c.id} ? 'CategoryOn' : 'CategoryOff'">
+                <h2><a th:href="@{/produse(categorie=${c.id})}" th:text="${c.nume}"></a></h2>
+            </div>
+            <div class="SCategory">
+                <th:block th:each="sc : ${c.children}">
+                    <span th:class="${selected != null and selected == sc.id} ? 'Select' : ''">
+                        <a th:href="@{/produse(categorie=${sc.id})}" th:text="${sc.nume}"></a>
+                    </span>
+                    <br/>
+                </th:block>
+            </div>
+        </th:block>
+        <div class="Footer"></div>
+    </div>
 </body>
 </html>

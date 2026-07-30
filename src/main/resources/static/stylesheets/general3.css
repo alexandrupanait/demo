@@ -1,0 +1,30 @@
+#center {
+	position:absolute;
+	left: 120px;
+	top: 150px;
+	background-color: #faf; 
+	border:1px solid; 
+	width: 780px; 
+	height: 500px;
+}
+
+#left {
+	position:absolute;
+	left: 0px;
+	top: 150px;
+	background-color: #faa; 
+	border:1px solid; 
+	width: 120px; 
+	height: 500px;
+}
+
+
+#bottom {
+	position:absolute;
+	left:0px;
+	top:650px;
+	background-color: #aff; 
+	border:1px solid; 
+	width: 900px; 
+	height: 50px;	
+}

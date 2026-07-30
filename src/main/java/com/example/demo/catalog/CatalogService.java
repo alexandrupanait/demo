@@ -8,19 +8,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class CatalogService {
 
-    private final ProdusRepository produsRepository;
     private final CategorieProdusRepository categorieProdusRepository;
 
-    public CatalogService(ProdusRepository produsRepository, CategorieProdusRepository categorieProdusRepository) {
-        this.produsRepository = produsRepository;
+    public CatalogService(CategorieProdusRepository categorieProdusRepository) {
         this.categorieProdusRepository = categorieProdusRepository;
-    }
-
-    public List<Produs> listOnlineProducts(Integer categorieId) {
-        if (categorieId == null) {
-            return produsRepository.findByOnlineTrueOrderByOrdineAsc();
-        }
-        return produsRepository.findByOnlineTrueAndCategorie_IdOrderByOrdineAsc(categorieId);
     }
 
     public List<CategoryNode> getCategoryTree() {

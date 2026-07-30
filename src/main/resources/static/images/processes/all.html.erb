@@ -1,0 +1,95 @@
+<%= javascript_include_tag :defaults %>
+<%= calendar_date_select_includes "silver" %>
+<%= calendar_date_select_includes "american" %>
+<%= render :partial => '/application/first', :locals=>{:body_id=>"ralonline", :title=>"RAL ONLINE"}%>
+<div class="indent-main">
+	<div class="indent-main1">
+    	<div class="container">
+			<%stil = "background:#C1EEF9"%>		
+			<div class="col-1">
+				<ul style = "width:80%; font-size: 10px">
+						<%if session[:client_activ] && session['ralonline_selected_menu'] == 'overview'; stil = "background:#C1EEF9;" elsif session[:client_activ]; stil = "background:#FFFFFF" else stil="display:none" end%>
+					<li style=<%=stil%>><%=link_to text("ralonline.menu.overview"),{:controller=>"my_account",:action=>"all", :ralonline_selected_menu=>"overview"}%></li>
+					
+						<%if session['ralonline_selected_menu'] == 'shopping_cart'; stil = "background:#C1EEF9" else stil = "background:#FFFFFF" end%>		
+					<li style=<%=stil%>><%=link_to text("ralonline.menu.shopping_cart"), {:controller=>"my_account",:action=>"all",:ralonline_selected_menu=>"shopping_cart"}%></li>
+					
+						<%if session[:client_activ] && session['ralonline_selected_menu'] == 'purchase_orders'; stil = "background:#C1EEF9" elsif session[:client_activ]; stil = "background:#FFFFFF" else stil="display:none" end%>
+					<li style=<%=stil%>><%=link_to text("ralonline.menu.purchase_orders"), {:controller=>"my_account",:action=>"all",:ralonline_selected_menu=>"purchase_orders"}%></li>
+					
+						<%if session[:client_activ] && session['ralonline_selected_menu'] == 'invoices'; stil = "background:#C1EEF9" elsif session[:client_activ]; stil = "background:#FFFFFF" else stil="display:none" end%>
+					<li style=<%=stil%>><%=link_to text("ralonline.menu.invoices"), {:controller=>"my_account",:action=>"all",:ralonline_selected_menu=>"invoices"}%></li>		
+					
+						<%if session[:client_activ] && session['ralonline_selected_menu'] == 'payments'; stil = "background:#C1EEF9" elsif session[:client_activ]; stil = "background:#FFFFFF" else stil="display:none" end%>
+					<li style=<%=stil%>><%=link_to text("ralonline.menu.payments"), {:controller=>"my_account",:action=>"all",:ralonline_selected_menu=>"payments"}%></li>		
+					
+						<%if session[:client_activ] && session['ralonline_selected_menu'] == 'balance'; stil = "background:#C1EEF9" elsif session[:client_activ]; stil = "background:#FFFFFF" else stil="display:none" end%>
+					<li style=<%=stil%>><%=link_to text("ralonline.menu.balance"), {:controller=>"my_account",:action=>"all",:ralonline_selected_menu=>"balance"}%></li>		
+					
+						<%if session[:client_activ] && session['ralonline_selected_menu'] == 'service'; stil = "background:#C1EEF9" elsif session[:client_activ]; stil = "background:#FFFFFF" else stil="display:none" end%>
+					<li style=<%=stil%>><%=link_to text("ralonline.menu.service"), {:controller=>"my_account",:action=>"all",:ralonline_selected_menu=>"service"}%></li>		
+					
+						<%if session[:client_activ] && session['ralonline_selected_menu'] == 'returns'; stil = "background:#C1EEF9" elsif session[:client_activ]; stil = "background:#FFFFFF" else stil = "display:none" end%>
+					<li style=<%=stil%>><%=link_to text("ralonline.menu.returns"), {:controller=>"my_account",:action=>"all",:ralonline_selected_menu=>"returns"}%></li>		
+					
+						<%if session[:client_activ] && session['ralonline_selected_menu'] == 'support'; stil = "background:#C1EEF9" elsif session[:client_activ]; stil = "background:#FFFFFF" else stil = "display:none" end%>
+					<li style=<%=stil%>><%=link_to text("ralonline.menu.support"), {:controller=>"my_account",:action=>"all",:ralonline_selected_menu=>"support"}%></li>		
+					
+						<%if session[:admin] && session[:client_activ] && session['ralonline_selected_menu'] == 'admin'; stil = "background:#C1EEF9" elsif session[:admin] && session[:client_activ]; stil = "background:#FFFFFF" else stil="display:none" end%>
+					<li style=<%=stil%>><%=link_to text("ralonline.menu.admin"), {:controller=>"my_account",:action=>"all",:ralonline_selected_menu=>"admin"}%></li>	
+					
+						<%if session[:client_activ] && session['ralonline_selected_menu'] == 'stock'; stil = "background:#C1EEF9" elsif session[:client_activ]; stil = "background:#FFFFFF" else stil="display:none" end%>
+					<li style=<%=stil%>><%=link_to text("ralonline.menu.stock"), {:controller=>"my_account",:action=>"all",:ralonline_selected_menu=>"stock"}%></li>																							
+				</ul>										
+			</div>
+	
+			<div class="col-2" >
+				
+				<%if session[:client_activ] && session['ralonline_selected_menu'] == 'overview'%>
+					<%= render :partial => 'my_account/overview'%>
+				<%elsif session['ralonline_selected_menu'] == 'shopping_cart'%>
+					<%= render :partial => 'my_account/shopping_cart'%>
+				<%elsif session[:client_activ] && session['ralonline_selected_menu'] == 'purchase_orders'%>
+					<%= render :partial => 'my_account/purchase_orders'%>
+				<%elsif session[:client_activ] && session['ralonline_selected_menu'] == 'invoices'%>
+					<%= render :partial => 'my_account/invoices'%>
+				<%elsif session[:client_activ] && session['ralonline_selected_menu'] == 'payments'%>
+					<%= render :partial => 'my_account/payments'%>
+				<%elsif session[:client_activ] && session['ralonline_selected_menu'] == 'balance'%>
+					<%= render :partial => 'my_account/balance'%>
+					
+				<%elsif session[:client_activ] && session['ralonline_selected_menu'] == 'service'%>
+					<%= render :partial => 'my_account/service'%>
+				<%elsif session[:client_activ] && session['ralonline_selected_menu'] == 'service_details'%>
+					<%= render :partial => 'my_account/service_details'%>					
+				<%elsif session[:client_activ] && session['ralonline_selected_menu'] == 'service_add'%>
+					<%= render :partial => 'my_account/service_add'%>						
+				<%elsif session[:client_activ] && session['ralonline_selected_menu'] == 'service_edit'%>
+					<%= render :partial => 'my_account/service_edit'%>																
+				<%elsif session[:client_activ] && session['ralonline_selected_menu'] == 'returns'%>
+					<%= render :partial => 'my_account/returns'%>
+				<%elsif session[:client_activ] && session['ralonline_selected_menu'] == 'retur_add'%>					
+					<%=render :partial =>'my_account/retur_add'%>
+				<%elsif session[:client_activ] && session['ralonline_selected_menu'] == 'edit_retur'%>
+					<%=render :partial =>'my_account/retur_edit'%>	
+					
+				<%elsif session[:client_activ] && session['ralonline_selected_menu'] == 'support'%>
+					<%= render :partial => 'my_account/support'%>
+				<%elsif session[:client_activ] && session['ralonline_selected_menu'] == 'support_add'%>
+					<%= render :partial => 'my_account/support_add'%>
+				<%elsif session[:client_activ] && session['ralonline_selected_menu'] == 'support_edit'%>
+					<%= render :partial => 'my_account/support_edit'%>
+					
+					
+				<%elsif session[:admin] && session[:client_activ] && session['ralonline_selected_menu'] == 'admin'%>
+					<%= render :partial => 'my_account/admin'%>					
+				<%elsif session[:client_activ] && session['ralonline_selected_menu'] == 'stock'%>
+					<%= render :partial => 'my_account/reservation'%>					
+				<%elsif session[:client_activ] && session['ralonline_selected_menu'] == 'edit_client_account'%>
+					<%= render :partial => 'my_account/edit_client_account'%>
+				<%end%>
+			</div>
+		</div>
+	</div>
+</div>
+<%= render :partial => '/application/last'%>

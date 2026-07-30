@@ -1,0 +1,58 @@
+<div id="header">
+       	  		<div class="sub-menu" >       	  											
+
+					<% form_tag('/search') do%>
+						<%=text_field_tag 'search_string', '', {:style=>"position:absolute; border:none; height:15px; width:180px; left:300px;"}%>
+						<%=submit_tag text("ralonline.text.search"), {:style=>"position:absolute; height:15px; width: 60px; left:500px;"}%>
+					<%end%>	
+					
+					<%= link_to text("ralonline.text.about_us"), {:controller=> 'presentation',:action=>'all'}, {:style => "color:#FFF; font-weight:bold"} %> &nbsp; | &nbsp; 
+					<%= link_to text("ralonline.text.news"), {:controller=>'news',:action=>'all'}, {:style => "color:#FFF; font-weight:bold"}%> &nbsp; | &nbsp; 
+					<%= link_to text("ralonline.text.contact"), {:controller=>'contact',:action=>'all'}, {:style => "color:#FFF; font-weight:bold"} %> &nbsp; | &nbsp; 
+					<%= link_to text("ralonline.text.help"), {:controller=>'help',:action=>'all'}, {:style => "color:#FFF; font-weight:bold"} %>&nbsp;  &nbsp; &nbsp;  &nbsp;	
+													
+					<% if session[:language]=='_ro'%>
+						<%=link_to "english", :language=>"_en"%>
+					<%else%>
+						<%=link_to "romana", :language=>"_ro"%>					
+					<%end%>
+										
+				</div>
+				
+                <div class="indent-header">
+					<% if session[:language]=='_ro'%>
+					   <%= link_to image_tag("home_img.gif",      :id=>'Image1'),{:action=>"home2",:controller=>"application"},:onmouseout=>"MM_swapImgRestore()",:onmouseover=>"MM_swapImage('Image1','','/images/home_img_act.gif',1)"%>				   				   
+					   <%= link_to image_tag("produse_img.gif",   :id=>'Image2'),{:action=>"all",  :controller=>"products"},   :onmouseout=>"MM_swapImgRestore()",:onmouseover=>"MM_swapImage('Image2','','/images/produse_img_act.gif',1)"%>				   
+	     			   <%= link_to image_tag("solutii_img.gif",   :id=>'Image3'),{:action=>"all",  :controller=>"solutions"},  :onmouseout=>"MM_swapImgRestore()",:onmouseover=>"MM_swapImage('Image3','','/images/solutii_img_act.gif',1)"%>				   				   
+					   <%= link_to image_tag("furnizori_img.gif", :id=>'Image5'),{:action=>"all",  :controller=>"suppliers"},  :onmouseout=>"MM_swapImgRestore()",:onmouseover=>"MM_swapImage('Image5','','/images/furnizori_img_act.gif',1)"%>	
+					   <%= link_to image_tag("contul_meu_img.gif",:id=>'Image6'),{:action=>"all",  :controller=>"my_account",  :ralonline_selected_menu=>session['ralonline_selected_menu']}, :onmouseout=>"MM_swapImgRestore()",:onmouseover=>"MM_swapImage('Image6','','/images/contul_meu_img_act.gif',1)"%>			   				   				   				   				   				       				   
+	 				<%else%>				
+	 				   <%= link_to image_tag("home_img.gif",      :id=>'Image1'),{:action=>"home2",:controller=>"application"},:onmouseout=>"MM_swapImgRestore()",:onmouseover=>"MM_swapImage('Image1','','/images/home_img_act.gif',1)"%>				   				   
+					   <%= link_to image_tag("products_img.gif",  :id=>'Image2'),{:action=>"all",  :controller=>"products"},   :onmouseout=>"MM_swapImgRestore()",:onmouseover=>"MM_swapImage('Image2','','/images/products_img_act.gif',1)"%>				   
+	     			   <%= link_to image_tag("solutions_img.gif", :id=>'Image3'),{:action=>"all",  :controller=>"solutions"},  :onmouseout=>"MM_swapImgRestore()",:onmouseover=>"MM_swapImage('Image3','','/images/solutions_img_act.gif',1)"%>				   				   
+					   <%= link_to image_tag("suppliers_img.gif", :id=>'Image5'),{:action=>"all",  :controller=>"suppliers"},  :onmouseout=>"MM_swapImgRestore()",:onmouseover=>"MM_swapImage('Image5','','/images/suppliers_img_act.gif',1)"%>	
+					   <%= link_to image_tag("my_account_img.gif",:id=>'Image6'),{:action=>"all",  :controller=>"my_account",  :ralonline_selected_menu=>session['ralonline_selected_menu']}, :onmouseout=>"MM_swapImgRestore()",:onmouseover=>"MM_swapImage('Image6','','/images/my_account_img_act.gif',1)"%>			   				   				   				   				   				  					   
+	 				<%end%>					
+					<%= link_to image_tag("ctx_help.jpg",:id=>'Image7'),:action=>"context",  :controller=>"help",:from=>params%>			   				   				   				   				   				   					   
+	   					<% if session[:user_id]%>
+							<div style="position:absolute; width:220px; top:24px; left:600px; text_align:right;">
+							<table align="right" >
+								<tr>
+									<td align="right"><strong><%=session[:user_name].to_s%></strong></td>									
+								</tr>
+							 	<tr><td align="right"><%=session[:client_name].to_s%></td></tr>													
+							</table>
+							</div>
+						<%end%>
+						<div style="position:absolute; width:60px; top:28px; left:825px;">
+						<% if session[:user_id]%>
+							<%= link_to image_tag("power_on2.jpg",:alt=>"Disconnect" ),{:action=>"logout",  :controller=>"my_account"}%></td>
+						<%else%>
+							<%= link_to image_tag("power_off.jpg",:alt=>"Connect"),{:action=>"all", :controller=>"my_account"}%>			   				   				   				   				   				  			   
+						<%end%>	
+						</div>									
+					
+					
+                </div>									
+</div>
+     

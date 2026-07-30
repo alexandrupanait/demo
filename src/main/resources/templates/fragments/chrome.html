@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<div th:fragment="header" id="Header">
+    <div class="Top">
+        <div class="Registered">&nbsp;</div>
+        <div class="Menu2">
+            <a th:href="@{/presentation}">despre noi</a> &nbsp;|&nbsp;
+            <a th:href="@{/info}">noutati</a> &nbsp;|&nbsp;
+            <a th:href="@{/contact}">contact</a> &nbsp;|&nbsp;
+            <a th:href="@{/help}">ajutor</a>
+        </div>
+        <div class="Lang">&nbsp;</div>
+        <div class="Spacer1">&nbsp;</div>
+        <div class="ShoppingCart"></div>
+    </div>
+
+    <div class="Bottom">
+        <div class="Menus">
+            <a th:href="@{/}">Home</a> &nbsp;|&nbsp;
+            <a th:href="@{/produse}">Produse</a> &nbsp;|&nbsp;
+            <a th:href="@{/solutions}">Solutii</a> &nbsp;|&nbsp;
+            <a th:href="@{/suppliers}">Furnizori</a> &nbsp;|&nbsp;
+            <a th:href="@{/ralonline}">RAL Online</a>
+        </div>
+        <div class="Toolbar">
+            <a th:href="@{/ralonline/shopping_cart}" title="catre cosul de cumparaturi">
+                <img alt="catre cosul de cumparaturi" th:src="@{/images/shopping_cart_empty_15.gif}"
+                     style="float:left; vertical-align:middle; padding-right:3px;" />
+            </a>
+        </div>
+        <div class="Search2">
+            <form th:action="@{/search}" id="SearchForm" method="post" name="SearchForm">
+                <input id="search_key" name="search_key" type="text" value="produse, solutii etc." />
+                <input class="search_submit" name="commit" type="submit" value="cauta" />
+            </form>
+        </div>
+    </div>
+</div>
+<div class="Clear"></div>
+
+<div th:fragment="footer" id="Footer">
+    <div class="indent-footer">
+        <table width="100%">
+            <tr>
+                <td width="70%" valign="middle">
+                    &copy; 2009 &bull; SC RAL Computers SRL &bull; RO5204613 &bull; J40/1203/25.01.1994 &bull; Bucuresti, str. Vlad Dracul nr. 6
+                    &bull; <a th:href="@{/help/termeni}">Termeni si conditii</a>
+                </td>
+                <td align="right" width="30%" valign="middle"></td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,54 @@
+@charset "utf-8";
+/* CSS Document */
+
+div.subHeader_Main {
+	clear:both;
+	margin:0;
+	padding-top:10px;
+	padding-bottom:10px;
+	width:980px;
+	height:294px;
+	background:url(/images/subHeader.jpg) center top no-repeat;
+}
+div.subHeader_InfoLinks {
+	clear:both;
+	margin:80px 0 0 410px;
+	padding:0;
+	width:340px;
+	height:210px;
+	background:none;
+	text-align:center;
+	vertical-align:middle;
+	font-family: Tahoma, Verdana, Arial, Helvetica, sans-serif;
+	font-size:12px;
+	color:#006ab6;
+}
+.subHeader_InfoLinks a {
+	color:#006ab6;
+	font-size:12px;
+	font-weight:normal;
+	text-decoration:none;
+}
+.subHeader_InfoLinks a:hover {
+	color:#ff6c00;
+	text-decoration:underline;
+}
+
+div.subHeader_InfoLinks .price {
+	clear:both;
+	margin:0;
+	padding:0;
+	color:#ff6c00;
+	font-weight:bold;
+}
+div.subHeader_InfoLinks .points {
+	clear:both;
+	margin:0;
+	padding:0;
+	color:#b8b8b8;
+}
+div.subHeader_InfoLinks .textbox {
+	font-size:11px;
+	color:#666666;
+}
+div.subHeader_clearAll { clear: both; font-size: 0; height: 0; line-height: 0;}
