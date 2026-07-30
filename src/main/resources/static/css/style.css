@@ -1,0 +1,61 @@
+body {
+    font-family: sans-serif;
+    margin: 2rem;
+    color: #222;
+}
+
+nav a {
+    margin-right: 1rem;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-top: 1rem;
+}
+
+th, td {
+    border: 1px solid #ccc;
+    padding: 0.5rem 0.75rem;
+    text-align: left;
+}
+
+th {
+    background: #f2f2f2;
+}
+
+.layout {
+    display: flex;
+    gap: 2rem;
+    align-items: flex-start;
+}
+
+aside {
+    flex: 0 0 260px;
+}
+
+aside .all-products {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+aside ul {
+    list-style: none;
+    padding-left: 1rem;
+    margin: 0;
+}
+
+aside > div > ul {
+    padding-left: 0;
+}
+
+aside a.active {
+    font-weight: bold;
+    color: #b30000;
+}
+
+main {
+    flex: 1;
+    min-width: 0;
+}

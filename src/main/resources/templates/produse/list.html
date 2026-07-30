@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ro" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Produse</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <nav>
+        <a th:href="@{/}">Home</a>
+        <a th:href="@{/produse}">Produse</a>
+    </nav>
+
+    <div class="layout">
+        <aside>
+            <a th:href="@{/produse}" class="all-products">Toate produsele</a>
+            <div th:insert="~{fragments/category-tree :: tree(${categoryTree}, ${selectedCategorie})}"></div>
+        </aside>
+
+        <main>
+    <h1>Produse</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Cod</th>
+                <th>Nume</th>
+                <th>Categorie</th>
+                <th>Producator</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="produs : ${produse}">
+                <td th:text="${produs.cod}"></td>
+                <td th:text="${produs.nume}"></td>
+                <td th:text="${produs.categorie != null ? produs.categorie.nume : '-'}"></td>
+                <td th:text="${produs.codProducator}"></td>
+            </tr>
+        </tbody>
+    </table>
+        </main>
+    </div>
+</body>
+</html>

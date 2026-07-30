@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+    <ul th:fragment="tree(categories, selected)">
+        <li th:each="c : ${categories}">
+            <a th:href="@{/produse(categorie=${c.id})}"
+               th:text="${c.nume}"
+               th:classappend="${selected != null and selected == c.id} ? 'active'"></a>
+            <div th:if="${not #lists.isEmpty(c.children)}"
+                 th:insert="~{fragments/category-tree :: tree(${c.children}, ${selected})}"></div>
+        </li>
+    </ul>
+</body>
+</html>
