@@ -45,4 +45,19 @@ public class CartLine {
     public BigDecimal getSubtotalCuTva() {
         return subtotal.multiply(VAT_MULTIPLIER).setScale(2, java.math.RoundingMode.HALF_UP);
     }
+
+    // The real cart page shows "Valoare fara TVA" and "Valoare TVA" as separate
+    // columns (not a combined cu-TVA figure) - these are just the TVA delta.
+    public BigDecimal getTvaUnitar() {
+        return getPretUnitarCuTva().subtract(pretUnitar);
+    }
+
+    public BigDecimal getTvaSubtotal() {
+        return getSubtotalCuTva().subtract(subtotal);
+    }
+
+    public boolean isInStoc() {
+        BigDecimal stoc = produs.getCantitate();
+        return stoc != null && stoc.compareTo(BigDecimal.valueOf(cantitate)) >= 0;
+    }
 }

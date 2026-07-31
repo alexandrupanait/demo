@@ -20,6 +20,10 @@ public class CartService {
     private static final Integer ANONYMOUS_CLIENT = 0;
     private static final String SESSION_KEY = "cart";
 
+    // Simplified flat fee - the real transport-cost lookup table (weight-based,
+    // per-carrier) is a deliberate simplification, see the Phase 4 plan.
+    public static final BigDecimal TRANSPORT_FEE = new BigDecimal("15.00");
+
     private final StocuriSiteViewRepository stocuriSiteViewRepository;
     private final PricingService pricingService;
 

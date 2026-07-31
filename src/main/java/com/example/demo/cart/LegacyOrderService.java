@@ -20,10 +20,11 @@ import com.example.demo.account.ClientAccount;
  * #after_create / LegacyComandaWeb#init.
  *
  * Deliberately simplified vs. the original: no green-stamp eco-tax, no
- * weight-based transport lookup, flat transport fee - same simplification
- * already chosen for the Phase 4 pricing model. This writes real rows into
- * production tables that sync into Axapta (confirmed and accepted by the
- * user) - not test-isolated data.
+ * weight-based transport cost lookup (the transport carrier is a real
+ * customer choice, but its fee stays a flat amount regardless of which one)
+ * - same simplification already chosen for the Phase 4 pricing model. This
+ * writes real rows into production tables that sync into Axapta (confirmed
+ * and accepted by the user) - not test-isolated data.
  */
 @Service
 public class LegacyOrderService {
@@ -33,7 +34,6 @@ public class LegacyOrderService {
     private static final int IDVALUTA_RON = 1;
     private static final int IDVALUTA_USD = 2;
     private static final int IDVALUTA_EUR = 3;
-    private static final String TRANSPORT_COD = "NEMOEXPRES";
 
     private final JurnalvanzariWebRepository jurnalvanzariWebRepository;
     private final CursFacturaWebRepository cursFacturaWebRepository;
@@ -58,7 +58,8 @@ public class LegacyOrderService {
 
     @Transactional
     public ComandaPlasata plaseazaComanda(ClientAccount cont, Integer idAutor, String numePersoana, String emailClient,
-            String adresaLivrare, String modPlataUi, List<CartLine> linii, BigDecimal transportFaraTva) {
+            String adresaLivrare, String comentarii, String modPlataUi, String transportCod, List<CartLine> linii,
+            BigDecimal transportFaraTva) {
 
         BigDecimal cursUsd = rate("COPUSD");
         BigDecimal cursEur = rate("COPEUR");
@@ -74,9 +75,19 @@ public class LegacyOrderService {
         }
         BigDecimal total = baza.add(tva);
 
+        // Mirrors InvoicePayMode.get_AX_mapping: numerar->NUM, ramburs->RAMBURS,
+        // la termen (our "OP")->OP.
+        String modPlataRaw = switch (modPlataUi) {
+            case "numerar" -> "numerar";
+            case "ramburs" -> "ramburs";
+            default -> "la termen";
+        };
+        String modPlataAx = switch (modPlataUi) {
+            case "numerar" -> "NUM";
+            case "ramburs" -> "RAMBURS";
+            default -> "OP";
+        };
         boolean ramburs = "ramburs".equals(modPlataUi);
-        String modPlataRaw = ramburs ? "ramburs" : "la termen";
-        String modPlataAx = ramburs ? "RAMBURS" : "OP";
 
         JurnalvanzariWeb factura = new JurnalvanzariWeb();
         factura.setData(OffsetDateTime.now());
@@ -89,12 +100,13 @@ public class LegacyOrderService {
         factura.setTva(tva);
         factura.setBaza(baza);
         factura.setTotal(total);
-        factura.setTransport(TRANSPORT_COD);
+        factura.setTransport(transportCod);
         factura.setOnline(true);
         factura.setIdAutor(idAutor);
         factura.setRamburs(ramburs);
         factura.setZileTp(0);
         factura.setInfoLivrare(adresaLivrare);
+        factura.setInfo(comentarii);
         factura.setEmailConfirmare(emailClient);
         factura = jurnalvanzariWebRepository.save(factura);
 
@@ -127,13 +139,14 @@ public class LegacyOrderService {
         comanda.setLocalitatea(cont.getSediuLocalitate());
         comanda.setPersoana(numePersoana);
         comanda.setCostTransport(transportCuTva);
-        comanda.setTransport(TRANSPORT_COD);
+        comanda.setTransport(transportCod);
         comanda.setCurs(cursUsd);
         comanda.setPlata(modPlataAx);
         comanda.setStare("neprelucrata");
         comanda.setIdAutor(idAutor);
         comanda.setCursEur(cursEur);
         comanda.setInfoLivrare(adresaLivrare);
+        comanda.setInfo(comentarii);
         comanda.setEmailConfirmare(emailClient);
         comanda.setData(LocalDateTime.now());
         comanda = comandaWebRepository.save(comanda);

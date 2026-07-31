@@ -5,44 +5,139 @@
 
 <div th:replace="~{fragments/chrome :: header}"></div>
 
-<div class="Content">
+<div th:replace="~{fragments/ralonline-menu :: sidebar('cart')}"></div>
+
+<div class="breadcrumb">
+    <div class="logo-block"><img alt="RAL" src="/images/logo/logo_no_background.png" />&nbsp;</div>
+    <div class="secondary-block">Online</div>
+    <div class="separator">&nbsp;&raquo;&nbsp;</div>
+    <div class="primary-block">Cos de cumparaturi</div>
+</div>
+
+<div class="Content" style="font-size:12px;">
     <h1>Cosul de cumparaturi</h1>
 
-    <table width="100%" cellpadding="6" cellspacing="0" border="0" style="font-size:12px;">
-        <tr style="background:#eee; font-weight:bold; text-align:left;">
-            <td>Produs</td>
-            <td align="right">Pret unitar (cu TVA)</td>
-            <td align="center">Cantitate</td>
-            <td align="right">Subtotal (cu TVA)</td>
-            <td></td>
-        </tr>
-        <tr th:each="linie : ${linii}" style="border-bottom:1px solid #ddd;">
-            <td><a th:href="@{/produse/{id}(id=${linie.produs.id})}" th:text="${linie.produs.numeAfisat}"></a></td>
-            <td align="right" th:text="|${linie.pretUnitarCuTva} RON|"></td>
-            <td align="center">
-                <form th:action="@{/cart/update}" method="post" style="display:inline">
-                    <input type="hidden" name="produsId" th:value="${linie.produs.id}" />
-                    <input type="number" name="cantitate" min="1" th:value="${linie.cantitate}" style="width:50px;" />
-                    <input type="submit" value="actualizeaza" />
-                </form>
-            </td>
-            <td align="right" th:text="|${linie.subtotalCuTva} RON|"></td>
-            <td>
-                <form th:action="@{/cart/remove}" method="post" style="display:inline">
-                    <input type="hidden" name="produsId" th:value="${linie.produs.id}" />
-                    <input type="submit" value="sterge" />
-                </form>
-            </td>
-        </tr>
-    </table>
+    <p>
+        Prin plasarea comenzii, inclusiv prin apasarea oricarui buton in acest sens, declarati ca agreati si acceptati
+        in mod expres si neabiguu <a target="_blank" href="http://www.ral.ro/ppd.pdf">Politica de prelucrare a datelor</a> si
+        <a th:href="@{/help/termeni}">Termeni si conditii</a>
+    </p>
 
     <p th:if="${#lists.isEmpty(linii)}">Cosul de cumparaturi este gol.</p>
 
-    <h2 th:if="${!#lists.isEmpty(linii)}" style="text-align:right;" th:text="|Total (cu TVA): ${total} RON|"></h2>
+    <div th:if="${!#lists.isEmpty(linii)}">
+        <form th:action="@{/cart/update-all}" method="post">
+            <table class="simple-table" cellspacing="0" cellpadding="0" border="0" width="100%">
+                <tr>
+                    <th style="width:50px;">Sterge</th>
+                    <th style="width:20px;">#</th>
+                    <th>Produs</th>
+                    <th style="width:30px;">UM</th>
+                    <th style="width:50px;">Cant.</th>
+                    <th style="width:70px;">PU</th>
+                    <th style="width:100px;">Valoare<br/>fara TVA</th>
+                    <th style="width:80px;">Valoare<br/>TVA</th>
+                </tr>
+                <tr th:each="linie, iter : ${linii}" th:class="${iter.index % 2 == 0} ? 'data1' : 'data2'">
+                    <td><input type="checkbox" name="toDel" th:value="${linie.produs.id}" /></td>
+                    <td th:text="${iter.index + 1}"></td>
+                    <td style="text-align:left">
+                        <a th:href="@{/produse/{id}(id=${linie.produs.id})}" th:text="${linie.produs.numeAfisat}"></a>
+                    </td>
+                    <td>buc</td>
+                    <td>
+                        <input type="number" min="1" th:name="|qty_${linie.produs.id}|" th:value="${linie.cantitate}"
+                               th:style="${linie.inStoc} ? 'width:40px; text-align:center;' : 'width:40px; text-align:center; background:#ffb3b3;'" />
+                    </td>
+                    <td style="text-align:right" th:text="|${linie.pretUnitar} RON|"></td>
+                    <td style="text-align:right" th:text="|${linie.subtotal} RON|"></td>
+                    <td style="text-align:right" th:text="|${linie.tvaSubtotal} RON|"></td>
+                </tr>
+                <tr class="data2">
+                    <td>&nbsp;</td>
+                    <td th:text="${#lists.size(linii) + 1}"></td>
+                    <td style="text-align:left">Transport</td>
+                    <td>buc</td>
+                    <td>1</td>
+                    <td style="text-align:right" th:text="|${transportFaraTva} RON|"></td>
+                    <td style="text-align:right" th:text="|${transportFaraTva} RON|"></td>
+                    <td style="text-align:right" th:text="|${transportTva} RON|"></td>
+                </tr>
+                <tr class="data3">
+                    <td colspan="6" rowspan="2"><b>TOTAL</b></td>
+                    <td style="text-align:right" th:text="${bazaTotal}"></td>
+                    <td style="text-align:right" th:text="${tvaTotal}"></td>
+                </tr>
+                <tr class="data3">
+                    <td colspan="2" style="font-size:14px; font-weight:bold; color:#FF6C00;" th:text="|${total} RON|"></td>
+                </tr>
+            </table>
 
-    <p th:if="${!#lists.isEmpty(linii)}" style="text-align:right;">
-        <a th:href="@{/ralonline/shopping_cart/checkout}">Finalizeaza comanda &raquo;</a>
-    </p>
+            <p th:if="${!toateInStoc}" style="color:red; font-weight:bold;">
+                Atentie: cantitatea solicitata depaseste stocul disponibil pentru unul sau mai multe produse (marcate cu rosu).
+            </p>
+
+            <p>
+                <input type="submit" value="Actualizeaza cantitatile" />
+                <input type="submit" formaction="/cart/remove-bulk" value="Sterge articolele selectate" />
+            </p>
+        </form>
+
+        <form th:action="@{/ralonline/shopping_cart/place-order}" method="post" style="margin-top:20px;">
+            <div class="data-holder">
+                <div class="data-label">Mod plata:</div>
+                <div class="data-box_normal">
+                    <label><input type="radio" name="modPlata" value="ramburs" checked="checked" /> ramburs</label>
+                    <label><input type="radio" name="modPlata" value="OP" /> ordin de plata</label>
+                    <label><input type="radio" name="modPlata" value="numerar" /> numerar</label>
+                </div>
+                <div class="Clear"></div>
+
+                <div class="data-label">Mod livrare:</div>
+                <div class="data-box_normal">
+                    <label><input type="radio" name="modLivrare" value="NEMOEXPRES" checked="checked" /> Nemo Express</label>
+                    <label><input type="radio" name="modLivrare" value="Fara transportator" /> la sediul RAL</label>
+                    <label><input type="radio" name="modLivrare" value="FANCOURIER" /> Fan Courier</label>
+                </div>
+                <div class="Clear"></div>
+
+                <div class="data-label">Curs:</div>
+                <div class="data-box_normal" th:text="|${cursUsd} RON/USD, ${cursEur} RON/EUR|"></div>
+                <div class="Clear"></div>
+            </div>
+
+            <div class="submit-holder">
+                <div th:if="${userNameLogat != null}">
+                    <input type="image" th:src="@{/images/place_order_ro.jpg}" name="place" alt="Plaseaza comanda" title="Plaseaza comanda" th:disabled="${!toateInStoc}" />
+                </div>
+                <div th:if="${userNameLogat == null}" style="width:202px; text-align:justify; color:#000000;">
+                    Pentru a plasa o comanda este necesar un cont RAL Online.<br/><br/>
+                    <div style="text-align:center">
+                        <a th:href="@{/ralonline/register}"><img th:src="@{/images/sign_up_ro.png}" alt="Creati un cont" /></a>
+                    </div>
+                </div>
+            </div>
+            <div class="Clear"></div>
+
+            <p th:if="${userNameLogat == null}" style="font-weight:normal;">
+                <span style="color:red; font-weight:bold;">Atentie! </span>Preturile de mai sus sunt pentru utilizatori finali.
+                Daca firma Dvs. activeaza in domeniul IT va rugam sa specificati acest lucru la inregistrare pentru a beneficia de preturi de distributie!
+            </p>
+
+            <p>Adresa de mail<br/>
+                <input type="email" name="emailClient" th:value="${cont != null ? cont.email : ''}" style="width:300px;" required="required" />
+            </p>
+
+            <p>Adresa de expeditie (daca este alta decat cea specificata in datele contului)<br/>
+                <textarea name="adresaLivrare" style="width:400px; height:40px;" maxlength="200" required="required"></textarea>
+            </p>
+
+            <p>Comentarii client<br/>
+                <span style="font-size:10px; color:black; font-weight:normal;">Introduceti aici daca este nevoie alte mesaje sau indicatii pentru operatorii nostri</span><br/>
+                <textarea name="comentarii" style="width:400px; height:40px;" maxlength="200"></textarea>
+            </p>
+        </form>
+    </div>
 
     <p><a th:href="@{/produse}">&laquo; Continua cumparaturile</a></p>
 </div>

@@ -75,6 +75,9 @@ public class JurnalvanzariWeb {
     @Column(name = "info_livrare")
     private String infoLivrare;
 
+    @Column(name = "info")
+    private String info;
+
     @Column(name = "email_confirmare")
     private String emailConfirmare;
 
@@ -208,6 +211,14 @@ public class JurnalvanzariWeb {
 
     public void setInfoLivrare(String infoLivrare) {
         this.infoLivrare = infoLivrare;
+    }
+
+    public String getInfo() {
+        return info;
+    }
+
+    public void setInfo(String info) {
+        this.info = info;
     }
 
     public String getEmailConfirmare() {

@@ -7,11 +7,33 @@
 
 <div th:replace="~{fragments/ralonline-menu :: sidebar('cart')}"></div>
 
+<div class="breadcrumb">
+    <div class="logo-block"><img alt="RAL" src="/images/logo/logo_no_background.png" />&nbsp;</div>
+    <div class="secondary-block">Online</div>
+    <div class="separator">&nbsp;&raquo;&nbsp;</div>
+    <div class="primary-block">Cos de cumparaturi</div>
+</div>
+
 <div class="Content">
-    <h1>Comanda a fost plasata cu succes!</h1>
-    <p th:text="|Numarul comenzii dvs.: ${comandaId}|"></p>
-    <p th:text="|Total: ${total} RON|"></p>
-    <p>Va vom contacta in curand pentru confirmarea si livrarea comenzii.</p>
+    <div style="clear:both; padding-top:20px; color:#6caa00; font-size:18px; font-weight:normal; font-family:'arial black', tahoma, verdana, arial, sans-serif;">
+        <img th:src="@{/images/message_ok.jpg}" alt="OK" style="float:right" />
+        Comanda Dvs. a fost plasata cu succes!
+    </div>
+
+    <div style="clear:both; padding-top:20px; color:black; text-align:justify; font-size:12px; font-weight:normal; font-family:tahoma, verdana, arial, sans-serif;">
+        Imediat dupa prelucrarea ei de catre operatorii nostri veti primi un e-mail de confirmare.
+        <br/>Daca aveti un termen de plata stabilit cu RAL, produsele vor fi livrate in maxim 48 ore (cel mai des in 24 ore).
+        Daca nu, produsele vor fi livrate in maxim 48 ore de la receptionarea banilor in conturile noastre.
+    </div>
+
+    <div style="clear:both; padding-top:20px; color:black; text-align:justify; font-size:13px; font-weight:bold; font-family:tahoma, verdana, arial, sans-serif;">
+        Va multumim pentru alegerea facuta!
+    </div>
+
+    <p style="margin-top:20px; font-size:12px;">
+        <span th:text="|Numarul comenzii Dvs.: ${comandaId}|"></span> &bull;
+        <span th:text="|Total: ${total} RON|"></span>
+    </p>
 
     <p><a th:href="@{/ralonline}">&laquo; Inapoi la contul meu</a></p>
 </div>

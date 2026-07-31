@@ -19,10 +19,7 @@
         </div>
         <div class="Lang">&nbsp;</div>
         <div class="Spacer1">&nbsp;</div>
-        <div class="ShoppingCart">
-            <a th:if="${cartItemCount != null and cartItemCount > 0}" th:href="@{/cart}" style="color:white;"
-               th:text="${cartItemCount == 1} ? '1 produs in cos' : |${cartItemCount} produse in cos|"></a>
-        </div>
+        <div class="ShoppingCart"></div>
     </div>
 
     <div class="Bottom">
@@ -34,11 +31,16 @@
             <a th:href="@{/ralonline}">RAL Online</a>
         </div>
         <div class="Toolbar">
-            <a th:href="@{/cart}" title="catre cosul de cumparaturi">
-                <img alt="catre cosul de cumparaturi"
-                     th:src="@{${cartItemCount != null and cartItemCount > 0} ? '/images/shopping_cart_15.gif' : '/images/shopping_cart_empty_15.gif'}"
-                     style="float:left; vertical-align:middle; padding-right:3px;" />
-            </a>
+            <div style="float:left">
+                <a th:href="@{/cart}" title="catre cosul de cumparaturi">
+                    <img alt="catre cosul de cumparaturi"
+                         th:src="@{${cartItemCount != null and cartItemCount > 0} ? '/images/shopping_cart_15.gif' : '/images/shopping_cart_empty_15.gif'}"
+                         style="float:left; vertical-align:middle; padding-right:3px;" />
+                </a>
+            </div>
+            <div style="float:left" th:if="${cartItemCount != null and cartItemCount > 0}">
+                <a th:href="@{/cart}" th:text="${cartItemCount == 1} ? '1 produs in cos' : |${cartItemCount} produse in cos|"></a>
+            </div>
         </div>
         <div class="Search2">
             <form th:action="@{/search}" id="SearchForm" method="get" name="SearchForm">

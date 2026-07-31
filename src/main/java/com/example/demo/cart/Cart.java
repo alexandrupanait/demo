@@ -1,6 +1,7 @@
 package com.example.demo.cart;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -23,6 +24,10 @@ public class Cart implements Serializable {
 
     public void remove(Integer produsId) {
         items.remove(produsId);
+    }
+
+    public void removeAll(Collection<Integer> produsIds) {
+        items.keySet().removeAll(produsIds);
     }
 
     public void clear() {
