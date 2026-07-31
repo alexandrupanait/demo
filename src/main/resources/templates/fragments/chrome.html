@@ -2,7 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <body>
 
-<div th:fragment="header" id="Header">
+<th:block th:fragment="header">
+<div id="Header">
     <div class="Top">
         <div class="Registered">&nbsp;</div>
         <div class="Menu2">
@@ -39,6 +40,7 @@
     </div>
 </div>
 <div class="Clear"></div>
+</th:block>
 
 <div th:fragment="footer" id="Footer">
     <div class="indent-footer">
