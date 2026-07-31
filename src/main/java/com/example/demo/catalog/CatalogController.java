@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.example.demo.account.ClientPricingContext;
+
 import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
@@ -25,22 +27,30 @@ public class CatalogController {
     private final CatalogService catalogService;
     private final ProductFilterService productFilterService;
     private final ProductDetailService productDetailService;
+    private final DriverFilesService driverFilesService;
 
     public CatalogController(CatalogService catalogService, ProductFilterService productFilterService,
-            ProductDetailService productDetailService) {
+            ProductDetailService productDetailService, DriverFilesService driverFilesService) {
         this.catalogService = catalogService;
         this.productFilterService = productFilterService;
         this.productDetailService = productDetailService;
+        this.driverFilesService = driverFilesService;
     }
 
     @GetMapping("/produse/{id}")
-    public String produsDetalii(@PathVariable Integer id, Model model) {
-        ProductDetail detail = productDetailService.getProductDetail(id)
+    public String produsDetalii(@PathVariable Integer id, HttpServletRequest request, Model model) {
+        ProductDetail detail = productDetailService.getProductDetail(id,
+                        ClientPricingContext.clientId(request), ClientPricingContext.discount(request))
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        StocuriSiteView produs = detail.getProdus();
         model.addAttribute("detaliu", detail);
         model.addAttribute("categoryTree", catalogService.getCategoryTree());
-        model.addAttribute("selectedCategorie", detail.getProdus().getIdCategorie());
-        model.addAttribute("breadcrumb", catalogService.getBreadcrumb(detail.getProdus().getIdCategorie()));
+        model.addAttribute("selectedCategorie", produs.getIdCategorie());
+        model.addAttribute("breadcrumb", catalogService.getBreadcrumb(produs.getIdCategorie()));
+        model.addAttribute("fisiereDriver", driverFilesService.listDriverFiles(produs.getCodProducator(), produs.getCod())
+                .stream()
+                .map(nume -> new DriverFile(nume, driverFilesService.downloadUrl(produs.getCodProducator(), produs.getCod(), nume)))
+                .toList());
         return "produse/detail";
     }
 
@@ -64,7 +74,8 @@ public class CatalogController {
         filter.setPretMax(pretMax);
         filter.setActiveAttributes(extractActiveAttributes(request));
 
-        ProductListingResult result = productFilterService.listProducts(categorie, filter);
+        ProductListingResult result = productFilterService.listProducts(categorie, filter,
+                ClientPricingContext.clientId(request), ClientPricingContext.discount(request));
 
         model.addAttribute("rezultat", result);
         model.addAttribute("filtru", filter);

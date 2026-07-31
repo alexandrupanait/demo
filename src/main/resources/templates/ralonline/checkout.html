@@ -14,18 +14,18 @@
         <tr th:each="linie : ${linii}">
             <td th:text="${linie.produs.numeAfisat}"></td>
             <td align="center" th:text="|x${linie.cantitate}|"></td>
-            <td align="right" th:text="|${linie.subtotal} RON|"></td>
+            <td align="right" th:text="|${linie.subtotalCuTva} RON|"></td>
         </tr>
         <tr>
-            <td colspan="2">Subtotal</td>
+            <td colspan="2">Subtotal (cu TVA)</td>
             <td align="right" th:text="|${subtotal} RON|"></td>
         </tr>
         <tr>
-            <td colspan="2">Transport</td>
+            <td colspan="2">Transport (cu TVA)</td>
             <td align="right" th:text="|${transport} RON|"></td>
         </tr>
         <tr style="font-weight:bold;">
-            <td colspan="2">Total</td>
+            <td colspan="2">Total (cu TVA)</td>
             <td align="right" th:text="|${total} RON|"></td>
         </tr>
     </table>

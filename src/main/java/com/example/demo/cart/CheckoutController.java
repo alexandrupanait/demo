@@ -48,18 +48,23 @@ public class CheckoutController {
     @GetMapping("/checkout")
     public String checkoutForm(HttpSession session, Model model) {
         Cart cart = cartService.getOrCreateCart(session);
-        List<CartLine> linii = cartService.resolveLines(cart);
+        Integer clientId = (Integer) session.getAttribute("clientId");
+        BigDecimal discount = (BigDecimal) session.getAttribute("clientDiscount");
+        List<CartLine> linii = cartService.resolveLines(cart, clientId, discount);
         if (linii.isEmpty()) {
             return "redirect:/cart";
         }
 
-        Integer clientId = (Integer) session.getAttribute("clientId");
-        BigDecimal subtotal = cartService.total(linii);
+        // Shown cu TVA (what the customer actually pays, matching every other
+        // price on the site) - computed the same way LegacyOrderService sums
+        // its real total, so this preview matches the order that gets placed.
+        BigDecimal subtotalCuTva = cartService.totalCuTva(linii);
+        BigDecimal transportCuTva = TRANSPORT_FEE.multiply(new BigDecimal("1.21")).setScale(2, java.math.RoundingMode.HALF_UP);
 
         model.addAttribute("linii", linii);
-        model.addAttribute("subtotal", subtotal);
-        model.addAttribute("transport", TRANSPORT_FEE);
-        model.addAttribute("total", subtotal.add(TRANSPORT_FEE));
+        model.addAttribute("subtotal", subtotalCuTva);
+        model.addAttribute("transport", transportCuTva);
+        model.addAttribute("total", subtotalCuTva.add(transportCuTva));
         model.addAttribute("cont", clientAccountRepository.findById(clientId).orElse(null));
         return "ralonline/checkout";
     }
@@ -68,12 +73,13 @@ public class CheckoutController {
     public String placeOrder(@RequestParam String emailClient, @RequestParam String adresaLivrare,
             @RequestParam String modPlata, HttpSession session, Model model) {
         Cart cart = cartService.getOrCreateCart(session);
-        List<CartLine> linii = cartService.resolveLines(cart);
+        Integer clientId = (Integer) session.getAttribute("clientId");
+        BigDecimal discount = (BigDecimal) session.getAttribute("clientDiscount");
+        List<CartLine> linii = cartService.resolveLines(cart, clientId, discount);
         if (linii.isEmpty()) {
             return "redirect:/cart";
         }
 
-        Integer clientId = (Integer) session.getAttribute("clientId");
         ClientAccount cont = clientAccountRepository.findById(clientId).orElseThrow();
         Integer idAutor = (Integer) session.getAttribute("userId");
         String numePersoana = (String) session.getAttribute("userName");

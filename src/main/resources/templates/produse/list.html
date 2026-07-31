@@ -11,7 +11,12 @@
 
 <div class="Spacer"></div>
 
-<div class="breadcrumb" th:if="${!#lists.isEmpty(breadcrumb)}">
+<div class="breadcrumb" th:if="${selectedCategorie == null}" style="border-bottom:1px solid #cee1ef; padding-bottom:2px;">
+    <div class="logo-block"><img alt="RAL" src="/images/logo/logo_no_background.png" />&nbsp;</div>
+    <div class="large-block">Top 10 cele mai vandute produse</div>
+</div>
+
+<div class="breadcrumb" th:if="${selectedCategorie != null and !#lists.isEmpty(breadcrumb)}" style="border-bottom:1px solid #cee1ef; padding-bottom:2px;">
     <div class="logo-block"><img alt="RAL" src="/images/logo/logo_no_background.png" />&nbsp;</div>
     <div class="secondary-block"><a th:href="@{/produse}">Produse</a></div>
     <div class="separator">&nbsp;&raquo;&nbsp;</div>

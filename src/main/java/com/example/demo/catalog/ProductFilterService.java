@@ -29,37 +29,41 @@ public class ProductFilterService {
     private final AtributeCategorieValoareRepository atributeCategorieValoareRepository;
     private final AtributeProdusRepository atributeProdusRepository;
     private final CatalogService catalogService;
+    private final PricingService pricingService;
 
     public ProductFilterService(StocuriSiteViewRepository stocuriRepository,
             AtributeCategorieRepository atributeCategorieRepository,
             AtributeCategorieValoareRepository atributeCategorieValoareRepository,
             AtributeProdusRepository atributeProdusRepository,
-            CatalogService catalogService) {
+            CatalogService catalogService,
+            PricingService pricingService) {
         this.stocuriRepository = stocuriRepository;
         this.atributeCategorieRepository = atributeCategorieRepository;
         this.atributeCategorieValoareRepository = atributeCategorieValoareRepository;
         this.atributeProdusRepository = atributeProdusRepository;
         this.catalogService = catalogService;
+        this.pricingService = pricingService;
     }
 
-    public SearchResult search(String query) {
+    public SearchResult search(String query, Integer clientId, BigDecimal discountClient) {
         List<StocuriSiteView> produse = stocuriRepository.searchByNameOrCode(ANONYMOUS_CLIENT, query);
-        Map<Integer, BigDecimal> pretRonById = produse.stream()
-                .collect(Collectors.toMap(StocuriSiteView::getId, StocuriSiteView::getPretRonAnonim));
+        Map<Integer, BigDecimal> pretRonById = pricingService.computePricesCuTva(produse, clientId, discountClient);
         return new SearchResult(produse, pretRonById);
     }
 
-    public ProductListingResult listProducts(Integer categorieId, ProductFilter filter) {
-        // A parent category (e.g. "UPS") usually has no products of its own,
-        // only through its subcategories - so list products from it and
-        // every descendant, not just an exact category match.
+    public ProductListingResult listProducts(Integer categorieId, ProductFilter filter, Integer clientId, BigDecimal discountClient) {
+        // With no category selected (root "Produse" link), the real site
+        // shows the curated top-10 best-sellers list (top_produse), not
+        // every product. A parent category (e.g. "UPS") usually has no
+        // products of its own either, only through its subcategories - so
+        // list products from it and every descendant, not just an exact
+        // category match.
         List<StocuriSiteView> allInCategory = (categorieId == null)
-                ? stocuriRepository.findByIdclientAndOnlineTrueOrderByOrdineAsc(ANONYMOUS_CLIENT)
+                ? stocuriRepository.findTopSellers(ANONYMOUS_CLIENT)
                 : stocuriRepository.findByIdclientAndOnlineTrueAndIdCategorieInOrderByOrdineAsc(
                         ANONYMOUS_CLIENT, catalogService.getCategoryAndDescendantIds(categorieId));
 
-        Map<Integer, BigDecimal> pretRonById = allInCategory.stream()
-                .collect(Collectors.toMap(StocuriSiteView::getId, StocuriSiteView::getPretRonAnonim));
+        Map<Integer, BigDecimal> pretRonById = pricingService.computePricesCuTva(allInCategory, clientId, discountClient);
 
         List<Integer> ids = allInCategory.stream().map(StocuriSiteView::getId).toList();
         Map<Integer, List<AtributeProdus>> attributesByProduct = ids.isEmpty()
@@ -79,7 +83,7 @@ public class ProductFilterService {
                 .filter(p -> matchesName(p, filter))
                 .filter(p -> matchesPrice(p, filter, pretRonById))
                 .filter(p -> matchesAttributes(p, filter, attributesByProduct))
-                .sorted(comparatorFor(filter, pretRonById))
+                .sorted(categorieId == null ? comparatorForTopSellers(filter, pretRonById) : comparatorFor(filter, pretRonById))
                 .toList();
 
         return new ProductListingResult(filtered, pretRonById, attributeGroups, suppliers, allInCategory.size());
@@ -176,6 +180,18 @@ public class ProductFilterService {
             case "price_asc" -> byPrice;
             case "price_desc" -> byPrice.reversed();
             default -> byOrdine;
+        };
+    }
+
+    // The top-10 list's default order is the curated top_produse.place rank,
+    // not the generic "ordine" field - Stream.sorted() is stable, so a
+    // comparator that always returns 0 just keeps the query's own order.
+    private Comparator<StocuriSiteView> comparatorForTopSellers(ProductFilter filter, Map<Integer, BigDecimal> pretRonById) {
+        Comparator<StocuriSiteView> byPrice = Comparator.comparing(p -> pretRonById.get(p.getId()));
+        return switch (filter.getSort()) {
+            case "price_asc" -> byPrice;
+            case "price_desc" -> byPrice.reversed();
+            default -> (a, b) -> 0;
         };
     }
 }

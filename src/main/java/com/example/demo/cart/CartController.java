@@ -1,5 +1,7 @@
 package com.example.demo.cart;
 
+import java.math.BigDecimal;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -40,9 +42,11 @@ public class CartController {
     @GetMapping
     public String view(HttpSession session, Model model) {
         Cart cart = cartService.getOrCreateCart(session);
-        var linii = cartService.resolveLines(cart);
+        Integer clientId = (Integer) session.getAttribute("clientId");
+        BigDecimal discount = (BigDecimal) session.getAttribute("clientDiscount");
+        var linii = cartService.resolveLines(cart, clientId, discount);
         model.addAttribute("linii", linii);
-        model.addAttribute("total", cartService.total(linii));
+        model.addAttribute("total", cartService.totalCuTva(linii));
         return "cart/view";
     }
 }

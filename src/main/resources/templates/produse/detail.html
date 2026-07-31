@@ -67,6 +67,13 @@
                 <span class="Title">Specificatii</span><br/><br/>
                 <div th:if="${detaliu.detalii != null}" th:utext="${detaliu.detalii.spec}"></div>
             </div>
+            <div class="Drivers">
+                <span class="Title">Drivere, Firmware Si Alte Documente</span><br/><br/>
+                <th:block th:each="fisier : ${fisiereDriver}">
+                    <a th:href="${fisier.url}" target="_blank" th:text="${fisier.nume}"></a><br/>
+                </th:block>
+                <span th:if="${#lists.isEmpty(fisiereDriver)}">Niciun fisier disponibil momentan.</span>
+            </div>
         </div>
         <div class="Footer"></div>
     </div>
