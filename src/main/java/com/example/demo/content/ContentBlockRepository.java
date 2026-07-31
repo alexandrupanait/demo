@@ -18,4 +18,12 @@ public interface ContentBlockRepository extends JpaRepository<ContentBlock, Inte
             ORDER BY c.listorder ASC
             """)
     List<ContentBlock> findHelpSections();
+
+    @Query("""
+            SELECT c FROM ContentBlock c
+            WHERE c.active = true
+              AND c.name LIKE 'help.menu.%'
+            ORDER BY c.listorder ASC
+            """)
+    List<ContentBlock> findHelpMenuItems();
 }

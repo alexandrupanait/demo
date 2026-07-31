@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ro" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: head(${continut != null ? continut.friendlyNameRo : 'Ajutor'} + ' | RAL')}"></head>
+<body id="Help">
+
+<div th:replace="~{fragments/chrome :: header}"></div>
+
+<div class="Menu">
+    <div class="holder-name">Ajutor</div>
+    <div th:each="item : ${menu}"
+         th:class="${item.active} ? 'holder-menus-middle-on' : 'holder-menus-middle'"
+         th:style="${item.sub} ? 'width:170px; padding-left:80px' : ''">
+        <a th:href="@{${item.href}}" th:text="|&raquo; ${item.label}|"></a>
+    </div>
+</div>
+
+<div class="Spacer">&nbsp;</div>
+
+<div class="Content">
+    <div th:if="${continut != null}">
+        <div class="Name" th:text="${continut.friendlyNameRo}"></div>
+        <div class="MainHolder">
+            <div class="Main" th:utext="${continut.contentRo}"></div>
+        </div>
+    </div>
+    <p th:if="${continut == null}" style="padding:20px;">Continutul este indisponibil momentan.</p>
+    <div class="Footer"></div>
+</div>
+
+<div class="Clear"></div>
+
+<div th:replace="~{fragments/chrome :: footer}"></div>
+
+</body>
+</html>
