@@ -50,7 +50,10 @@ public class AuthController {
             session.setAttribute("clientFirma", cont.getFirma());
             session.setAttribute("clientDiscount", cont.getProcent());
         });
-        return "redirect:/ralonline";
+        // Mirrors the real site exactly: login always lands on the account
+        // details page, not a dashboard - see ralonline_controller.rb#authenticate
+        // (the alternative "overview" redirect is dead/commented-out code there).
+        return "redirect:/ralonline/accounts";
     }
 
     @GetMapping("/logout")

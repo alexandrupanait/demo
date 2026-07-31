@@ -45,11 +45,29 @@ public class ClientUser {
     @Column(name = "email")
     private String email;
 
+    @Column(name = "departament")
+    private String departament;
+
+    @Column(name = "functie")
+    private String functie;
+
+    @Column(name = "act_serie")
+    private String actSerie;
+
+    @Column(name = "act_nr")
+    private String actNr;
+
+    @Column(name = "act_eliberat")
+    private String actEliberat;
+
     @Column(name = "activ")
     private Boolean activ;
 
     @Column(name = "admin")
     private Boolean admin;
+
+    @Column(name = "checked")
+    private Boolean checked;
 
     public Integer getId() {
         return id;
@@ -111,6 +129,46 @@ public class ClientUser {
         this.email = email;
     }
 
+    public String getDepartament() {
+        return departament;
+    }
+
+    public void setDepartament(String departament) {
+        this.departament = departament;
+    }
+
+    public String getFunctie() {
+        return functie;
+    }
+
+    public void setFunctie(String functie) {
+        this.functie = functie;
+    }
+
+    public String getActSerie() {
+        return actSerie;
+    }
+
+    public void setActSerie(String actSerie) {
+        this.actSerie = actSerie;
+    }
+
+    public String getActNr() {
+        return actNr;
+    }
+
+    public void setActNr(String actNr) {
+        this.actNr = actNr;
+    }
+
+    public String getActEliberat() {
+        return actEliberat;
+    }
+
+    public void setActEliberat(String actEliberat) {
+        this.actEliberat = actEliberat;
+    }
+
     public Boolean getActiv() {
         return activ;
     }
@@ -125,6 +183,14 @@ public class ClientUser {
 
     public void setAdmin(Boolean admin) {
         this.admin = admin;
+    }
+
+    public Boolean getChecked() {
+        return checked;
+    }
+
+    public void setChecked(Boolean checked) {
+        this.checked = checked;
     }
 
     public String getNumeComplet() {

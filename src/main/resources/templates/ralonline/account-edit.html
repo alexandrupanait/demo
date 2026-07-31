@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ro" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: head('Administrare cont | RAL Online')}"></head>
+<body id="ralonline">
+
+<div th:replace="~{fragments/chrome :: header}"></div>
+
+<div th:replace="~{fragments/ralonline-menu :: sidebar('accounts')}"></div>
+
+<div class="breadcrumb">
+    <div class="logo-block"><img alt="RAL" src="/images/logo/logo_no_background.png" />&nbsp;</div>
+    <div class="secondary-block">Online</div>
+    <div class="separator">&nbsp;&raquo;&nbsp;</div>
+    <div class="secondary-block">Administrare conturi</div>
+    <div class="separator">&nbsp;&raquo;&nbsp;</div>
+    <div class="primary-block">Detalii cont</div>
+</div>
+
+<div class="Content">
+    <div th:if="${account.checked == null or !account.checked}">
+        <p><strong>Bine ati venit pe platforma RAL Online!</strong></p>
+
+        <p>Va rugam sa ne acordati cateva momente pentru a revizui informatiile contului Dvs. Asigurati-va ca toate informatiile de mai jos sunt corecte apoi apasati butonul 'OK' pentru a salva informatiile.</p>
+
+        <p>Dupa aceasta, <strong><u>numele Dvs. de utilizator pentru autentificare va fi acelasi cu adresa de e-mail</u></strong>.</p>
+    </div>
+
+    <p th:if="${succes != null and succes}" style="color:green; font-weight:bold;">Contul a fost actualizat cu succes.</p>
+    <div th:if="${erori != null}" style="color:red; font-weight:bold;">
+        <p th:each="eroare : ${erori}" th:text="${eroare}"></p>
+    </div>
+
+    <form th:action="@{/ralonline/accounts}" method="post" style="font-size:12px;">
+        <table cellspacing="5">
+            <tr>
+                <td class="required2">Nume:</td>
+                <td><input type="text" name="nume" th:value="${account.nume}" style="width:115px" required="required" /></td>
+                <td class="required2">Prenume:</td>
+                <td><input type="text" name="prenume" th:value="${account.prenume}" style="width:150px" required="required" /></td>
+                <td class="required2">Email:</td>
+                <td><input type="email" name="email" th:value="${account.email}" style="width:150px" required="required" /></td>
+            </tr>
+            <tr>
+                <td class="notrequired2">Departament:</td>
+                <td><input type="text" name="departament" th:value="${account.departament}" style="width:115px" /></td>
+                <td class="notrequired2">Functie:</td>
+                <td><input type="text" name="functie" th:value="${account.functie}" style="width:150px" /></td>
+                <td class="notrequired2">Telefon:</td>
+                <td><input type="text" name="telefon" th:value="${account.telefon}" style="width:150px" /></td>
+            </tr>
+            <tr>
+                <td class="notrequired2">Serie act:</td>
+                <td><input type="text" name="actSerie" th:value="${account.actSerie}" style="width:115px" /></td>
+                <td class="notrequired2">Nr act:</td>
+                <td><input type="text" name="actNr" th:value="${account.actNr}" style="width:150px" /></td>
+                <td class="notrequired2">Eliberat de:</td>
+                <td><input type="text" name="actEliberat" th:value="${account.actEliberat}" style="width:150px" /></td>
+            </tr>
+            <tr>
+                <td class="notrequired2">Parola:</td>
+                <td><input type="password" name="parola" style="width:115px" /></td>
+                <td class="notrequired2">Confirma parola:</td>
+                <td><input type="password" name="parolaConfirmare" style="width:150px" /></td>
+                <td class="notrequired2">Activ:</td>
+                <td><input type="checkbox" name="activ" th:checked="${account.activ}" /></td>
+            </tr>
+        </table>
+
+        <p>Lasati campurile de parola goale daca nu doriti sa o schimbati.</p>
+
+        <div style="text-align:right; margin-top:20px;">
+            <input type="image" th:src="@{/images/button_ok_ro.png}" alt="OK" title="Salveaza" />
+        </div>
+    </form>
+</div>
+
+<div class="Clear"></div>
+
+<div th:replace="~{fragments/chrome :: footer}"></div>
+
+</body>
+</html>

@@ -12,4 +12,6 @@ public interface ClientUserRepository extends JpaRepository<ClientUser, Integer>
     Optional<ClientUser> findFirstByUtilizatorAndActivTrueOrderByIdAsc(String utilizator);
 
     boolean existsByEmailIgnoreCase(String email);
+
+    boolean existsByEmailIgnoreCaseAndIdNot(String email, Integer id);
 }
