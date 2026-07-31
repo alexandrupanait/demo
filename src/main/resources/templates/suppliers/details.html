@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ro" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: head(${furnizor.nume} + ' | RAL')}"></head>
+<body id="Suppliers">
+
+<div th:replace="~{fragments/chrome :: header}"></div>
+
+<div class="Content">
+    <div class="Supplier"><img th:src="@{${furnizor.imageLarge}}" th:alt="${furnizor.nume}" style="max-width:240px;" /></div>
+    <div class="SupplierName"><h1 th:text="${furnizor.nume}"></h1></div>
+    <div class="Main" th:utext="${furnizor.prezentare}"></div>
+    <p th:if="${furnizor.site != null and !furnizor.site.isBlank()}">
+        <a th:href="${furnizor.site}" target="_blank" th:text="${furnizor.site}"></a>
+    </p>
+</div>
+
+<div class="Clear"></div>
+<p><a th:href="@{/suppliers}">&laquo; Inapoi la furnizori</a></p>
+
+<div th:replace="~{fragments/chrome :: footer}"></div>
+
+</body>
+</html>

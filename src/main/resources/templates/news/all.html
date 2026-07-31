@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ro" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: head('Noutati | RAL')}"></head>
+<body id="NewsListPage">
+
+<div th:replace="~{fragments/chrome :: header}"></div>
+
+<h1>Noutati</h1>
+
+<th:block th:each="n : ${stiri}">
+    <div class="Content">
+        <div class="Main">
+            <a th:href="@{/info/{id}(id=${n.id})}" th:text="${n.titleRo}"></a><br/>
+            <span th:text="${#temporals.format(n.dateDisplay, 'dd MMM yyyy')}"></span>
+            <p th:text="${n.shortDescriptionRo}"></p>
+        </div>
+    </div>
+    <div class="Clear"></div>
+</th:block>
+
+<p th:if="${#lists.isEmpty(stiri)}">Nu exista stiri momentan.</p>
+
+<div class="Clear"></div>
+
+<div th:replace="~{fragments/chrome :: footer}"></div>
+
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ro" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: head('Ajutor | RAL')}"></head>
+<body id="Help">
+
+<div th:replace="~{fragments/chrome :: header}"></div>
+
+<h1>Ajutor</h1>
+
+<th:block th:each="s : ${sectiuni}">
+    <div class="Content" th:if="${s.contentRo != null and !s.contentRo.isBlank()}">
+        <h2 th:text="${s.friendlyNameRo ?: s.name}"></h2>
+        <div th:utext="${s.contentRo}"></div>
+    </div>
+</th:block>
+
+<div class="Clear"></div>
+
+<div th:replace="~{fragments/chrome :: footer}"></div>
+
+</body>
+</html>

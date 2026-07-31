@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ro" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: head('Contact | RAL')}"></head>
+<body id="Contact">
+
+<div th:replace="~{fragments/chrome :: header}"></div>
+
+<h1>Contact</h1>
+
+<div class="Content" th:if="${continut != null}" th:utext="${continut.contentRo}"></div>
+<div class="Content" th:if="${directii != null}" th:utext="${directii.contentRo}"></div>
+
+<div class="Content" style="margin-top:20px;">
+    <p th:if="${mesajTrimis != null and mesajTrimis}"><strong>Mesajul dvs. a fost inregistrat. Va vom contacta in curand.</strong></p>
+
+    <form th:action="@{/contact/sendmail}" method="post">
+        <p>Nume: <input type="text" name="nume" required="required" /></p>
+        <p>Email: <input type="email" name="email" required="required" /></p>
+        <p>Telefon: <input type="text" name="phone" /></p>
+        <p>Mesaj:<br/><textarea name="message" rows="5" cols="50" required="required"></textarea></p>
+        <p><input type="submit" value="Trimite" /></p>
+    </form>
+</div>
+
+<div class="Clear"></div>
+
+<div th:replace="~{fragments/chrome :: footer}"></div>
+
+</body>
+</html>

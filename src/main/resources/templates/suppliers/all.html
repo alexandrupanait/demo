@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ro" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: head('Furnizori | RAL')}"></head>
+<body id="Suppliers">
+
+<div th:replace="~{fragments/chrome :: header}"></div>
+
+<h1>Furnizori</h1>
+
+<th:block th:each="f : ${furnizori}">
+    <div class="Content">
+        <div class="Supplier"><img th:src="@{${f.image}}" th:alt="${f.nume}" style="max-width:120px;max-height:80px;" /></div>
+        <div class="SupplierName">
+            <h3><a th:href="@{/suppliers/{id}(id=${f.id})}" th:text="${f.nume}"></a></h3>
+        </div>
+        <div class="Main" th:text="${#strings.abbreviate(f.prezentare ?: '', 200)}"></div>
+        <div class="Click"><a th:href="@{/suppliers/{id}(id=${f.id})}">citeste mai mult</a></div>
+    </div>
+    <div class="Clear"></div>
+</th:block>
+
+<div class="Clear"></div>
+
+<div th:replace="~{fragments/chrome :: footer}"></div>
+
+</body>
+</html>

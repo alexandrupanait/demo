@@ -50,11 +50,12 @@
 
 <div class="News">
     <a th:href="@{/info}"><img alt="Home_news_ro" th:src="@{/images/home_news_ro.png}" /></a>
-    <div style="margin-top:15px; border-bottom:1px dotted black;">
-        <div style="float:left;color:#FF6C00;font-size:11px; width:70px; padding-top:2px">30 Iul 2026</div>
+    <div style="margin-top:15px; border-bottom:1px dotted black;" th:if="${ultimaStire != null}">
+        <div style="float:left;color:#FF6C00;font-size:11px; width:70px; padding-top:2px"
+             th:text="${#temporals.format(ultimaStire.dateDisplay, 'dd MMM yyyy')}"></div>
         <div style="float:left; width:230px; background-color: #fff; border:0px solid red; border-radius: 3px">
             <img align="right" alt="Excl1" th:src="@{/images/excl1.jpg}" />
-            <a th:href="@{/info}">Bine ati venit pe noul site RAL - in constructie</a>
+            <a th:href="@{/info/{id}(id=${ultimaStire.id})}" th:text="${ultimaStire.titleRo}"></a>
         </div>
         <div style="clear:both;"></div>
         <br/>

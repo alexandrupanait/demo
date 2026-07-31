@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ro" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: head(${stire.titleRo} + ' | RAL')}"></head>
+<body id="NewsPage">
+
+<div th:replace="~{fragments/chrome :: header}"></div>
+
+<div class="Content">
+    <div class="Name"><h1 th:text="${stire.titleRo}"></h1></div>
+    <div class="MainHolder">
+        <div class="Main" th:utext="${stire.descriptionRo}"></div>
+    </div>
+    <div class="Footer"></div>
+</div>
+
+<div class="Clear"></div>
+<p><a th:href="@{/info}">&laquo; Inapoi la noutati</a></p>
+
+<div th:replace="~{fragments/chrome :: footer}"></div>
+
+</body>
+</html>

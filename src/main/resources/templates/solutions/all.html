@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ro" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: head(${solutie.nume} + ' | RAL')}"></head>
+<body id="SuppliersSolutions">
+
+<div th:replace="~{fragments/chrome :: header}"></div>
+
+<div class="Menu">
+    <div class="Table">
+        <th:block th:each="s : ${solutii}">
+            <div th:class="${s.id == solutie.id} ? 'SolutionSelected' : 'Solution'">
+                <h2><a th:href="@{/solutions/{id}(id=${s.id})}" th:text="|» ${s.nume}|"></a></h2>
+            </div>
+        </th:block>
+    </div>
+    <div class="Footer"></div>
+</div>
+
+<div class="Spacer"></div>
+
+<div class="Content">
+    <div class="Name"><h1 th:text="${solutie.nume}"></h1></div>
+    <div class="MainHolder">
+        <div class="Main" th:utext="${solutie.descriere}"></div>
+    </div>
+    <div class="Footer"></div>
+</div>
+
+<div class="Clear"></div>
+
+<div th:replace="~{fragments/chrome :: footer}"></div>
+
+</body>
+</html>
