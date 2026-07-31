@@ -30,7 +30,10 @@
                 <span class="Blue" th:text="${produs.disponibil} ? 'in stoc' : 'la comanda'"></span><br/><br/>
             </p>
             <div th:class="${produs.disponibil} ? 'Stock' : 'NoStock'">
-                <input type="submit" value="Adauga in cos" th:disabled="${!produs.disponibil}" />
+                <form th:action="@{/cart/add}" method="post">
+                    <input type="hidden" name="produsId" th:value="${produs.id}" />
+                    <input type="submit" value="Adauga in cos" th:disabled="${!produs.disponibil}" />
+                </form>
             </div>
             <div class="Details">
                 <a th:href="@{/produse/{id}(id=${produs.id})}">Detalii &raquo;</a>

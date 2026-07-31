@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ro" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: head('Finalizare comanda | RAL Online')}"></head>
+<body id="ralonline">
+
+<div th:replace="~{fragments/chrome :: header}"></div>
+
+<div class="Content">
+    <h1>Finalizare comanda</h1>
+
+    <table width="100%" cellpadding="4" cellspacing="0" border="0" style="font-size:12px;">
+        <tr th:each="linie : ${linii}">
+            <td th:text="${linie.produs.numeAfisat}"></td>
+            <td align="center" th:text="|x${linie.cantitate}|"></td>
+            <td align="right" th:text="|${linie.subtotal} RON|"></td>
+        </tr>
+        <tr>
+            <td colspan="2">Subtotal</td>
+            <td align="right" th:text="|${subtotal} RON|"></td>
+        </tr>
+        <tr>
+            <td colspan="2">Transport</td>
+            <td align="right" th:text="|${transport} RON|"></td>
+        </tr>
+        <tr style="font-weight:bold;">
+            <td colspan="2">Total</td>
+            <td align="right" th:text="|${total} RON|"></td>
+        </tr>
+    </table>
+
+    <form th:action="@{/ralonline/shopping_cart/place-order}" method="post" style="margin-top:20px;">
+        <p>Nume complet: <input type="text" name="numeClient" th:value="${cont != null ? cont.firma : ''}" required="required" style="width:300px;" /></p>
+        <p>Email: <input type="email" name="emailClient" required="required" style="width:300px;" /></p>
+        <p>Telefon: <input type="text" name="telefonClient" th:value="${cont != null ? cont.tel : ''}" style="width:300px;" /></p>
+        <p>Adresa de livrare:<br/><textarea name="adresaLivrare" rows="3" cols="50" required="required"></textarea></p>
+        <p>
+            Mod de plata:
+            <label><input type="radio" name="modPlata" value="ramburs" checked="checked" /> Ramburs</label>
+            <label><input type="radio" name="modPlata" value="OP" /> Ordin de plata (OP)</label>
+        </p>
+        <p><input type="submit" value="Plaseaza comanda" /></p>
+    </form>
+
+    <p><a th:href="@{/cart}">&laquo; Inapoi la cos</a></p>
+</div>
+
+<div class="Clear"></div>
+
+<div th:replace="~{fragments/chrome :: footer}"></div>
+
+</body>
+</html>

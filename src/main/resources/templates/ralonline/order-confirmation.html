@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ro" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: head('Comanda plasata | RAL Online')}"></head>
+<body id="ralonline">
+
+<div th:replace="~{fragments/chrome :: header}"></div>
+
+<div class="Content">
+    <h1>Comanda a fost plasata cu succes!</h1>
+    <p th:text="|Numarul comenzii dvs.: ${comandaId}|"></p>
+    <p th:text="|Total: ${total} RON|"></p>
+    <p>Va vom contacta in curand pentru confirmarea si livrarea comenzii.</p>
+
+    <p><a th:href="@{/ralonline}">&laquo; Inapoi la contul meu</a></p>
+</div>
+
+<div class="Clear"></div>
+
+<div th:replace="~{fragments/chrome :: footer}"></div>
+
+</body>
+</html>

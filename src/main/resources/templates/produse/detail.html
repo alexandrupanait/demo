@@ -43,8 +43,11 @@
             <span class="GrayBold">Disponibilitate</span><br/>
             <span class="Blue" th:text="${detaliu.produs.disponibil} ? 'in stoc' : 'la comanda'"></span><br/><br/>
         </p>
-        <div class="NoStock">
-            <input type="submit" value="Adauga in cos" disabled="disabled" title="Cosul de cumparaturi vine intr-o etapa urmatoare" />
+        <div th:class="${detaliu.produs.disponibil} ? 'Stock' : 'NoStock'">
+            <form th:action="@{/cart/add}" method="post">
+                <input type="hidden" name="produsId" th:value="${detaliu.produs.id}" />
+                <input type="submit" value="Adauga in cos" th:disabled="${!detaliu.produs.disponibil}" />
+            </form>
         </div>
     </div>
 
