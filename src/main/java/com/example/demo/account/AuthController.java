@@ -46,6 +46,8 @@ public class AuthController {
         session.setAttribute("userId", clientUser.getId());
         session.setAttribute("userName", clientUser.getNumeComplet());
         session.setAttribute("clientId", clientUser.getIdClient());
+        clientAccountRepository.findById(clientUser.getIdClient())
+                .ifPresent(cont -> session.setAttribute("clientFirma", cont.getFirma()));
         return "redirect:/ralonline";
     }
 

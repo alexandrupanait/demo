@@ -5,7 +5,12 @@
 <th:block th:fragment="header">
 <div id="Header">
     <div class="Top">
-        <div class="Registered">&nbsp;</div>
+        <div class="Registered">
+            <div class="Element" th:if="${userNameLogat != null}">
+                <span th:text="${userNameLogat}"></span> / <span th:text="${clientFirmaLogat}"></span>
+                [ <a th:href="@{/ralonline/logout}">deconectare</a> ]
+            </div>
+        </div>
         <div class="Menu2">
             <a th:href="@{/presentation}">despre noi</a> &nbsp;|&nbsp;
             <a th:href="@{/info}">noutati</a> &nbsp;|&nbsp;

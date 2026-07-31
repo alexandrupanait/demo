@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<!--/* Mirrors the old site's ralonline/_menu.html.erb "Account Manager" sidebar.
+     "activ" selects which entry gets the -on (highlighted) style. */-->
+<div th:fragment="sidebar(activ)" class="SimpleMenu" style="padding-top:13px;">
+    <div class="holder-name">Account Manager</div>
+    <div th:class="${activ == 'cart'} ? 'holder-menus-middle-on' : 'holder-menus-middle'">
+        <a th:href="@{/cart}">&raquo; Cos de cumparaturi</a>
+    </div>
+    <div th:class="${activ == 'orders'} ? 'holder-menus-middle-on' : 'holder-menus-middle'">
+        <a th:href="@{/ralonline/orders}">&raquo; Comenzi online</a>
+    </div>
+    <div th:class="${activ == 'invoices'} ? 'holder-menus-middle-on' : 'holder-menus-middle'">
+        <a th:href="@{/ralonline/invoices}">&raquo; Facturi emise</a>
+    </div>
+</div>
+
+</body>
+</html>

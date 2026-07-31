@@ -5,6 +5,8 @@
 
 <div th:replace="~{fragments/chrome :: header}"></div>
 
+<div th:replace="~{fragments/ralonline-menu :: sidebar(null)}"></div>
+
 <div class="Content">
     <div class="welcome-box">
         <p th:text="|Bine ai venit, ${userName}!|"></p>
@@ -22,11 +24,6 @@
             <div class="data-box" th:text="${cont.activitate}"></div>
             <div class="Clear"></div>
         </div>
-
-        <p><a th:href="@{/ralonline/invoices}">Facturile mele</a></p>
-        <p><a th:href="@{/ralonline/orders}">Comenzile mele</a></p>
-
-        <p><a th:href="@{/ralonline/logout}">Delogare</a></p>
     </div>
 </div>
 
