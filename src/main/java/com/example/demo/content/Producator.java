@@ -59,6 +59,11 @@ public class Producator {
         return ordineWeb;
     }
 
+    /** Mirrors Ruby's prezentare_for_search - strips HTML tags so a truncated preview never breaks a tag. */
+    public String getPrezentareText() {
+        return prezentare == null ? "" : prezentare.replaceAll("<[^>]*>", "");
+    }
+
     public String getImage() {
         return relativize(siglaMica);
     }

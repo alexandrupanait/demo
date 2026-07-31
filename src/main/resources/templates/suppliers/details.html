@@ -5,13 +5,19 @@
 
 <div th:replace="~{fragments/chrome :: header}"></div>
 
+<div class="Logo">
+    <img th:src="@{${furnizor.imageLarge}}" th:alt="${furnizor.nume}" />
+</div>
+<div class="Spacer"></div>
 <div class="Content">
-    <div class="Supplier"><img th:src="@{${furnizor.imageLarge}}" th:alt="${furnizor.nume}" style="max-width:240px;" /></div>
+    <div class="Supplier">Furnizor</div>
     <div class="SupplierName"><h1 th:text="${furnizor.nume}"></h1></div>
-    <div class="Main" th:utext="${furnizor.prezentare}"></div>
-    <p th:if="${furnizor.site != null and !furnizor.site.isBlank()}">
-        <a th:href="${furnizor.site}" target="_blank" th:text="${furnizor.site}"></a>
-    </p>
+    <div class="Logs"><img th:src="@{${furnizor.image}}" th:alt="${furnizor.nume}" /></div>
+    <br/><br/>
+    <div class="MainHolder">
+        <div class="Main" th:utext="${furnizor.prezentare}"></div>
+    </div>
+    <div class="Footer"></div>
 </div>
 
 <div class="Clear"></div>

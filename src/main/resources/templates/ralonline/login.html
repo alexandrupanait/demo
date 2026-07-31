@@ -1,22 +1,43 @@
 <!DOCTYPE html>
 <html lang="ro" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{fragments/head :: head('RAL Online - Autentificare')}"></head>
-<body id="Login">
+<body id="ralonline">
 
 <div th:replace="~{fragments/chrome :: header}"></div>
 
 <div class="Content">
-    <h1>RAL Online</h1>
-
-    <div class="Flash" th:if="${eroareLogin}">
-        Utilizator sau parola incorecta.
+    <div class="BoxLikeMenu">
+        <div class="holder-name">Acces RAL Online</div>
+        <div class="holder-menus-middle">
+            <div class="Spacer">&nbsp;</div>
+            Pentru a plasa comenzi, a vedea preturile Dvs. si a avea acces la
+            facilitatile platformei RAL Online trebuie sa va autentificati!
+            <div class="Spacer">&nbsp;</div>
+            <div th:if="${eroareLogin}" class="Flash">Utilizator sau parola incorecta.</div>
+            <form th:action="@{/ralonline/authenticate}" method="post">
+                Utilizator:
+                <input type="text" name="utilizator" class="input-text" required="required" />
+                <br />
+                Parola:
+                <input type="password" name="parola" class="input-text" required="required" />
+                <br />
+                <input type="submit" value="Autentificare" />
+            </form>
+            <div class="Spacer">&nbsp;</div>
+        </div>
     </div>
 
-    <form th:action="@{/ralonline/authenticate}" method="post">
-        <p>Utilizator: <input type="text" name="utilizator" required="required" /></p>
-        <p>Parola: <input type="password" name="parola" required="required" /></p>
-        <p><input type="submit" value="Autentificare" /></p>
-    </form>
+    <div style="float:left; width:380px; padding-left:20px;">
+        <h1>De ce sa alegeti RAL Online?</h1>
+        <ul>
+            <li><strong>economie</strong> de timp pretios pentru Dvs.;</li>
+            <li><strong>disponibilitate</strong> 24/24 (comanda, service, retur, suport, reclamatii, alte info);</li>
+            <li><strong>prioritate</strong> comenzi online fata de cele venite telefonic sau prin e-mail;</li>
+            <li><strong>informare</strong> permanenta asupra stocurilor existente, valorii produselor si comenzii;</li>
+            <li><strong>monitorizarea</strong> stadiului in care se afla comanda Dvs., de la plasare pana la livrare;</li>
+            <li><strong>acces</strong> rapid la descarcarea din cont a diferitelor documente emise (proforme, facturi) precum si la istoricul comenzilor Dvs.</li>
+        </ul>
+    </div>
 </div>
 
 <div class="Clear"></div>
