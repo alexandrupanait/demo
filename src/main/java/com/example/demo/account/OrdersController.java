@@ -7,22 +7,22 @@ import org.springframework.web.bind.annotation.GetMapping;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
-public class InvoicesController {
+public class OrdersController {
 
     private final ClientAccountRepository clientAccountRepository;
     private final AxaptaStatisticsClient axaptaStatisticsClient;
 
-    public InvoicesController(ClientAccountRepository clientAccountRepository, AxaptaStatisticsClient axaptaStatisticsClient) {
+    public OrdersController(ClientAccountRepository clientAccountRepository, AxaptaStatisticsClient axaptaStatisticsClient) {
         this.clientAccountRepository = clientAccountRepository;
         this.axaptaStatisticsClient = axaptaStatisticsClient;
     }
 
-    @GetMapping("/ralonline/invoices")
+    @GetMapping("/ralonline/orders")
     public String index(HttpSession session, Model model) {
         Integer clientId = (Integer) session.getAttribute("clientId");
         String firma = clientAccountRepository.findById(clientId).map(ClientAccount::getFirma).orElse("");
 
-        model.addAttribute("continut", axaptaStatisticsClient.fetchInvoices(firma).orElse(null));
-        return "ralonline/invoices";
+        model.addAttribute("continut", axaptaStatisticsClient.fetchOrders(firma).orElse(null));
+        return "ralonline/orders";
     }
 }

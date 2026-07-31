@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="ro" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{fragments/head :: head('Facturi | RAL Online')}"></head>
+<head th:replace="~{fragments/head :: head('Comenzi | RAL Online')}"></head>
 <body id="ralonline">
 
 <div th:replace="~{fragments/chrome :: header}"></div>
 
 <div class="Content">
-    <h1>Facturi</h1>
+    <h1>Comenzi</h1>
 
     <div th:if="${continut != null}" th:utext="${continut}"></div>
-    <p th:if="${continut == null}">Serviciul de facturi este indisponibil momentan. Va rugam incercati mai tarziu.</p>
+    <p th:if="${continut == null}">Serviciul de comenzi este indisponibil momentan. Va rugam incercati mai tarziu.</p>
 
     <p><a th:href="@{/ralonline}">&laquo; Inapoi</a></p>
 </div>
