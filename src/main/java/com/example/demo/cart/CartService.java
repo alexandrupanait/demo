@@ -34,6 +34,15 @@ public class CartService {
         return cart;
     }
 
+    /** Doesn't create a session/cart for visitors who never touched the cart - just reports 0. */
+    public int itemCount(HttpSession session) {
+        Cart cart = (Cart) session.getAttribute(SESSION_KEY);
+        if (cart == null) {
+            return 0;
+        }
+        return cart.getItems().values().stream().mapToInt(Integer::intValue).sum();
+    }
+
     /** Resolves each cart line against live product data - items no longer online/found are silently dropped. */
     public List<CartLine> resolveLines(Cart cart) {
         List<CartLine> linii = new ArrayList<>();
