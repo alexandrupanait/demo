@@ -10,4 +10,6 @@ public interface ClientUserRepository extends JpaRepository<ClientUser, Integer>
     // issue, confirmed via direct SQL) - take the first by id deterministically
     // instead of failing with a NonUniqueResultException.
     Optional<ClientUser> findFirstByUtilizatorAndActivTrueOrderByIdAsc(String utilizator);
+
+    boolean existsByEmailIgnoreCase(String email);
 }

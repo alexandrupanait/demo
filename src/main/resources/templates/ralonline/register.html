@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ro" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: head('Creare cont RAL Online')}"></head>
+<body id="ralonline">
+
+<div th:replace="~{fragments/chrome :: header}"></div>
+
+<div class="Content">
+    <h1>Creare cont nou</h1>
+
+    <div th:if="${erori != null and !#lists.isEmpty(erori)}" class="Flash">
+        <ul>
+            <li th:each="eroare : ${erori}" th:text="${eroare}"></li>
+        </ul>
+    </div>
+
+    <form th:action="@{/ralonline/register}" method="post">
+        <h3>Date firma</h3>
+        <p>Nume firma: <input type="text" name="firma" required="required" style="width:300px;" /></p>
+        <p>Cod fiscal (CUI): <input type="text" name="codFiscal" required="required" style="width:150px;" /></p>
+        <p>Localitate: <input type="text" name="sediuLocalitate" style="width:300px;" /></p>
+        <p>Adresa: <input type="text" name="sediuStrada" style="width:300px;" /></p>
+        <p>Telefon: <input type="text" name="tel" required="required" style="width:200px;" /></p>
+
+        <h3>Persoana de contact (va fi si utilizatorul de autentificare)</h3>
+        <p>Nume: <input type="text" name="nume" required="required" style="width:200px;" /></p>
+        <p>Prenume: <input type="text" name="prenume" required="required" style="width:200px;" /></p>
+        <p>Email: <input type="email" name="email" required="required" style="width:300px;" /></p>
+        <p>Parola: <input type="password" name="parola" required="required" style="width:200px;" /></p>
+        <p>Confirmare parola: <input type="password" name="parolaConfirmare" required="required" style="width:200px;" /></p>
+
+        <p><label><input type="checkbox" name="agreeTac" /> Sunt de acord cu termenii si conditiile</label></p>
+
+        <p><input type="submit" value="Creeaza cont" /></p>
+    </form>
+
+    <p><a th:href="@{/ralonline/login}">&laquo; Am deja cont, autentificare</a></p>
+</div>
+
+<div class="Clear"></div>
+
+<div th:replace="~{fragments/chrome :: footer}"></div>
+
+</body>
+</html>

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="ro" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: head('Cont creat | RAL Online')}"></head>
+<body id="ralonline">
+
+<div th:replace="~{fragments/chrome :: header}"></div>
+
+<div class="Content">
+    <h1>Cont creat cu succes!</h1>
+    <p>Va puteti autentifica acum cu adresa de email si parola alese.</p>
+    <p><a th:href="@{/ralonline/login}">Autentificare &raquo;</a></p>
+</div>
+
+<div class="Clear"></div>
+
+<div th:replace="~{fragments/chrome :: footer}"></div>
+
+</body>
+</html>

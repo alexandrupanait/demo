@@ -11,6 +11,7 @@ public class WebConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new RalonlineAuthInterceptor())
                 .addPathPatterns("/ralonline", "/ralonline/**")
-                .excludePathPatterns("/ralonline/login", "/ralonline/authenticate", "/ralonline/logout");
+                .excludePathPatterns("/ralonline/login", "/ralonline/authenticate", "/ralonline/logout",
+                        "/ralonline/register", "/ralonline/register/**");
     }
 }
