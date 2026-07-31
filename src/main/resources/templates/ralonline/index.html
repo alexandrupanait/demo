@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ro" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: head('RAL Online | RAL')}"></head>
+<body id="ralonline">
+
+<div th:replace="~{fragments/chrome :: header}"></div>
+
+<div class="Content">
+    <div class="welcome-box">
+        <p th:text="|Bine ai venit, ${userName}!|"></p>
+
+        <div th:if="${cont != null}">
+            <div class="data-label">Companie</div>
+            <div class="data-box" th:text="${cont.firma}"></div>
+            <div class="Clear"></div>
+
+            <div class="data-label">Discount</div>
+            <div class="data-box" th:text="|${cont.procent} %|"></div>
+            <div class="Clear"></div>
+
+            <div class="data-label">Status</div>
+            <div class="data-box" th:text="${cont.activitate}"></div>
+            <div class="Clear"></div>
+        </div>
+
+        <p><a th:href="@{/ralonline/logout}">Delogare</a></p>
+    </div>
+</div>
+
+<div class="Clear"></div>
+
+<div th:replace="~{fragments/chrome :: footer}"></div>
+
+</body>
+</html>

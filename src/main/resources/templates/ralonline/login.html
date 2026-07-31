@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ro" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: head('RAL Online - Autentificare')}"></head>
+<body id="Login">
+
+<div th:replace="~{fragments/chrome :: header}"></div>
+
+<div class="Content">
+    <h1>RAL Online</h1>
+
+    <div class="Flash" th:if="${eroareLogin}">
+        Utilizator sau parola incorecta.
+    </div>
+
+    <form th:action="@{/ralonline/authenticate}" method="post">
+        <p>Utilizator: <input type="text" name="utilizator" required="required" /></p>
+        <p>Parola: <input type="password" name="parola" required="required" /></p>
+        <p><input type="submit" value="Autentificare" /></p>
+    </form>
+</div>
+
+<div class="Clear"></div>
+
+<div th:replace="~{fragments/chrome :: footer}"></div>
+
+</body>
+</html>
