@@ -36,7 +36,7 @@ public class AuthController {
     @PostMapping("/authenticate")
     public String authenticate(@RequestParam String utilizator, @RequestParam String parola,
             HttpSession session, Model model) {
-        Optional<ClientUser> user = clientUserRepository.findByUtilizatorAndActivTrue(utilizator);
+        Optional<ClientUser> user = clientUserRepository.findFirstByUtilizatorAndActivTrueOrderByIdAsc(utilizator);
         if (user.isEmpty() || !Objects.equals(user.get().getParola(), parola)) {
             model.addAttribute("eroareLogin", true);
             return "ralonline/login";

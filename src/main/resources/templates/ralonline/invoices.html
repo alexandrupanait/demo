@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ro" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: head('Facturi | RAL Online')}"></head>
+<body id="ralonline">
+
+<div th:replace="~{fragments/chrome :: header}"></div>
+
+<div class="Content">
+    <h1>Facturi</h1>
+
+    <table width="100%" cellpadding="4" cellspacing="0" border="0" style="font-size:12px;">
+        <tr style="background:#eee; font-weight:bold; text-align:left;">
+            <td>Numar</td>
+            <td>Data</td>
+            <td>Cumparator</td>
+            <td>Transport</td>
+            <td>Mod plata</td>
+            <td align="right">Baza</td>
+            <td align="right">TVA</td>
+            <td align="right">Total</td>
+        </tr>
+        <tr th:each="f : ${facturi}" style="border-bottom:1px solid #ddd;">
+            <td th:text="${f.numar}"></td>
+            <td th:text="${#temporals.format(f.data, 'dd.MM.yyyy')}"></td>
+            <td th:text="${f.cumparator}"></td>
+            <td th:text="${f.transport}"></td>
+            <td th:text="${f.modPlata}"></td>
+            <td align="right" th:text="${f.baza}"></td>
+            <td align="right" th:text="${f.tva}"></td>
+            <td align="right" th:text="${f.total}"></td>
+        </tr>
+    </table>
+
+    <p th:if="${#lists.isEmpty(facturi)}">Nu exista facturi inregistrate pentru contul dvs.</p>
+
+    <p><a th:href="@{/ralonline}">&laquo; Inapoi</a></p>
+</div>
+
+<div class="Clear"></div>
+
+<div th:replace="~{fragments/chrome :: footer}"></div>
+
+</body>
+</html>
