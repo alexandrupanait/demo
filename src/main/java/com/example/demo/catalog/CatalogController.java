@@ -3,6 +3,7 @@ package com.example.demo.catalog;
 import java.math.BigDecimal;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -39,6 +40,7 @@ public class CatalogController {
         model.addAttribute("detaliu", detail);
         model.addAttribute("categoryTree", catalogService.getCategoryTree());
         model.addAttribute("selectedCategorie", detail.getProdus().getIdCategorie());
+        model.addAttribute("breadcrumb", catalogService.getBreadcrumb(detail.getProdus().getIdCategorie()));
         return "produse/detail";
     }
 
@@ -68,6 +70,7 @@ public class CatalogController {
         model.addAttribute("filtru", filter);
         model.addAttribute("categoryTree", catalogService.getCategoryTree());
         model.addAttribute("selectedCategorie", categorie);
+        model.addAttribute("breadcrumb", categorie != null ? catalogService.getBreadcrumb(categorie) : List.of());
         return "produse/list";
     }
 

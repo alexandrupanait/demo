@@ -11,6 +11,19 @@
 
 <div class="Spacer"></div>
 
+<div class="breadcrumb" th:if="${!#lists.isEmpty(breadcrumb)}">
+    <div class="logo-block"><img alt="RAL" src="/images/logo/logo_no_background.png" />&nbsp;</div>
+    <div class="secondary-block"><a th:href="@{/produse}">Produse</a></div>
+    <div class="separator">&nbsp;&raquo;&nbsp;</div>
+    <th:block th:each="cat, iter : ${breadcrumb}">
+        <th:block th:if="${!iter.last}">
+            <div class="secondary-block"><a th:href="@{/produse(categorie=${cat.id})}" th:text="${cat.nume}"></a></div>
+            <div class="separator">&nbsp;&raquo;&nbsp;</div>
+        </th:block>
+        <div th:if="${iter.last}" class="primary-block" th:text="${cat.nume}"></div>
+    </th:block>
+</div>
+
 <div class="ProductContent">
     <th:block th:each="produs : ${rezultat.produse}">
         <div th:replace="~{fragments/product-card :: card(${produs}, ${rezultat.pretPentru(produs.id)})}"></div>

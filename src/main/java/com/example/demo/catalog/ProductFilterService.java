@@ -28,15 +28,18 @@ public class ProductFilterService {
     private final AtributeCategorieRepository atributeCategorieRepository;
     private final AtributeCategorieValoareRepository atributeCategorieValoareRepository;
     private final AtributeProdusRepository atributeProdusRepository;
+    private final CatalogService catalogService;
 
     public ProductFilterService(StocuriSiteViewRepository stocuriRepository,
             AtributeCategorieRepository atributeCategorieRepository,
             AtributeCategorieValoareRepository atributeCategorieValoareRepository,
-            AtributeProdusRepository atributeProdusRepository) {
+            AtributeProdusRepository atributeProdusRepository,
+            CatalogService catalogService) {
         this.stocuriRepository = stocuriRepository;
         this.atributeCategorieRepository = atributeCategorieRepository;
         this.atributeCategorieValoareRepository = atributeCategorieValoareRepository;
         this.atributeProdusRepository = atributeProdusRepository;
+        this.catalogService = catalogService;
     }
 
     public SearchResult search(String query) {
@@ -47,9 +50,13 @@ public class ProductFilterService {
     }
 
     public ProductListingResult listProducts(Integer categorieId, ProductFilter filter) {
+        // A parent category (e.g. "UPS") usually has no products of its own,
+        // only through its subcategories - so list products from it and
+        // every descendant, not just an exact category match.
         List<StocuriSiteView> allInCategory = (categorieId == null)
                 ? stocuriRepository.findByIdclientAndOnlineTrueOrderByOrdineAsc(ANONYMOUS_CLIENT)
-                : stocuriRepository.findByIdclientAndOnlineTrueAndIdCategorieOrderByOrdineAsc(ANONYMOUS_CLIENT, categorieId);
+                : stocuriRepository.findByIdclientAndOnlineTrueAndIdCategorieInOrderByOrdineAsc(
+                        ANONYMOUS_CLIENT, catalogService.getCategoryAndDescendantIds(categorieId));
 
         Map<Integer, BigDecimal> pretRonById = allInCategory.stream()
                 .collect(Collectors.toMap(StocuriSiteView::getId, StocuriSiteView::getPretRonAnonim));

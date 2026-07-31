@@ -14,7 +14,10 @@
 <div class="ProductContent">
     <div class="SynLink">
         <a th:href="@{/produse}">Produse</a> &raquo;
-        <a th:href="@{/produse(categorie=${detaliu.produs.idCategorie})}" th:text="'Categorie ' + ${detaliu.produs.idCategorie}"></a> &raquo;
+        <th:block th:each="cat, iter : ${breadcrumb}">
+            <a th:if="${!iter.last}" th:href="@{/produse(categorie=${cat.id})}" th:text="${cat.nume}"></a>
+            <th:block th:if="${!iter.last}"> &raquo; </th:block>
+        </th:block>
         <span class="Product" th:text="${detaliu.produs.numeAfisat}"></span>
     </div>
 

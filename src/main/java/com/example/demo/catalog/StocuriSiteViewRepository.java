@@ -15,6 +15,8 @@ public interface StocuriSiteViewRepository
 
     List<StocuriSiteView> findByIdclientAndOnlineTrueAndIdCategorieOrderByOrdineAsc(Integer idclient, Integer idCategorie);
 
+    List<StocuriSiteView> findByIdclientAndOnlineTrueAndIdCategorieInOrderByOrdineAsc(Integer idclient, List<Integer> idCategorii);
+
     Optional<StocuriSiteView> findByIdAndIdclientAndOnlineTrue(Integer id, Integer idclient);
 
     @Query("""
