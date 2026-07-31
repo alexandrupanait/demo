@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ro" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: head('Cautare | RAL')}"></head>
+<body id="ProductList">
+
+<div th:replace="~{fragments/chrome :: header}"></div>
+
+<div class="Menu">
+    <div th:replace="~{fragments/category-tree :: menu(${categoryTree}, ${selectedCategorie})}"></div>
+</div>
+
+<div class="Spacer"></div>
+
+<div class="ProductContent">
+    <h1 th:text="|Rezultatele cautarii pentru '${query}'|"></h1>
+
+    <p th:if="${eroare != null}" th:text="${eroare}"></p>
+
+    <th:block th:if="${rezultat != null}">
+        <th:block th:each="produs : ${rezultat.produse}">
+            <div th:replace="~{fragments/product-card :: card(${produs}, ${rezultat.pretPentru(produs.id)})}"></div>
+        </th:block>
+        <div style="clear:both;">&nbsp;</div>
+        <p th:if="${#lists.isEmpty(rezultat.produse)}" th:text="|Nu am gasit niciun rezultat pentru '${query}'.|"></p>
+    </th:block>
+</div>
+
+<div style="clear:both;">&nbsp;</div>
+
+<div th:replace="~{fragments/chrome :: footer}"></div>
+
+</body>
+</html>

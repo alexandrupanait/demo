@@ -13,40 +13,7 @@
 
 <div class="ProductContent">
     <th:block th:each="produs : ${rezultat.produse}">
-        <div class="Content">
-            <div class="Name">
-                <h3><a href="#" title="Detalii produs (in curand)" th:text="${produs.numeAfisat}"></a></h3>
-                <h3 style="font-size:12px">Cod:&nbsp;<a href="#" th:text="${produs.cod}"></a>
-                    &nbsp; &nbsp; Producator:&nbsp;<span th:text="${produs.codProducator}"></span></h3>
-            </div>
-            <div class="Img">
-                <table><td align="center" style="width:142px; height: 142px;">
-                    <a href="#"><img th:alt="${produs.numeAfisat}" th:src="@{${produs.thumb}}" width="142px" /></a>
-                </td></table>
-            </div>
-            <div class="Info">
-                <p th:text="${#strings.abbreviate(produs.infoWeb ?: '', 80)}"></p>
-            </div>
-        </div>
-        <div class="BuyBox">
-            <p>
-                <span class="Price" th:text="|${rezultat.pretPentru(produs.id)} RON|"></span>
-                <br/>cu TVA<br/><br/>
-                <span class="GrayBold">Garantie</span><br/>
-                <span class="Blue">
-                    <th:block th:if="${produs.garantie != null and produs.garantie != 0}" th:text="|${produs.garantie} luni|"></th:block>
-                    <th:block th:unless="${produs.garantie != null and produs.garantie != 0}">fara garantie</th:block>
-                </span><br/>
-                <span class="GrayBold">Disponibilitate</span><br/>
-                <span class="Blue" th:text="${produs.disponibil} ? 'in stoc' : 'la comanda'"></span><br/><br/>
-            </p>
-            <div th:class="${produs.disponibil} ? 'Stock' : 'NoStock'">
-                <input type="submit" value="Adauga in cos" th:disabled="${!produs.disponibil}" />
-            </div>
-            <div class="Details">
-                <a href="#" title="Detalii produs (in curand)">Detalii &raquo;</a>
-            </div>
-        </div>
+        <div th:replace="~{fragments/product-card :: card(${produs}, ${rezultat.pretPentru(produs.id)})}"></div>
     </th:block>
     <div style="clear:both;">&nbsp;</div>
     <p th:if="${#lists.isEmpty(rezultat.produse)}">Niciun produs nu corespunde filtrelor selectate.</p>

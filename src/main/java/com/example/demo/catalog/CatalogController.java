@@ -6,10 +6,13 @@ import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.server.ResponseStatusException;
 
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -20,10 +23,23 @@ public class CatalogController {
 
     private final CatalogService catalogService;
     private final ProductFilterService productFilterService;
+    private final ProductDetailService productDetailService;
 
-    public CatalogController(CatalogService catalogService, ProductFilterService productFilterService) {
+    public CatalogController(CatalogService catalogService, ProductFilterService productFilterService,
+            ProductDetailService productDetailService) {
         this.catalogService = catalogService;
         this.productFilterService = productFilterService;
+        this.productDetailService = productDetailService;
+    }
+
+    @GetMapping("/produse/{id}")
+    public String produsDetalii(@PathVariable Integer id, Model model) {
+        ProductDetail detail = productDetailService.getProductDetail(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        model.addAttribute("detaliu", detail);
+        model.addAttribute("categoryTree", catalogService.getCategoryTree());
+        model.addAttribute("selectedCategorie", detail.getProdus().getIdCategorie());
+        return "produse/detail";
     }
 
     @GetMapping("/produse")

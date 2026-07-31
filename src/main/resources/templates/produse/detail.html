@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ro" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: head(${detaliu.produs.numeAfisat} + ' | RAL')}"></head>
+<body id="ProductPage">
+
+<div th:replace="~{fragments/chrome :: header}"></div>
+
+<div class="Menu">
+    <div th:replace="~{fragments/category-tree :: menu(${categoryTree}, ${selectedCategorie})}"></div>
+</div>
+
+<div class="Spacer"></div>
+
+<div class="ProductContent">
+    <div class="SynLink">
+        <a th:href="@{/produse}">Produse</a> &raquo;
+        <a th:href="@{/produse(categorie=${detaliu.produs.idCategorie})}" th:text="'Categorie ' + ${detaliu.produs.idCategorie}"></a> &raquo;
+        <span class="Product" th:text="${detaliu.produs.numeAfisat}"></span>
+    </div>
+
+    <div class="Clear"></div>
+
+    <div class="Img">
+        <img style="width:19em;" th:src="@{${detaliu.produs.poza}}" th:alt="${detaliu.produs.numeAfisat}" />
+    </div>
+    <div class="Info">
+        <span class="Blue">
+            <strong>Departament vanzari</strong><br/>
+            +4 021 323.78.30<br/>
+            +4 021 322.48.30<br/>
+        </span>
+    </div>
+
+    <div class="BuyBox">
+        <p>
+            <span class="Price" th:text="|${detaliu.pretRon} RON|"></span>
+            <br/>cu TVA<br/><br/>
+            <span class="GrayBold">Garantie</span><br/>
+            <span class="Blue">
+                <th:block th:if="${detaliu.produs.garantie != null and detaliu.produs.garantie != 0}" th:text="|${detaliu.produs.garantie} luni|"></th:block>
+                <th:block th:unless="${detaliu.produs.garantie != null and detaliu.produs.garantie != 0}">fara garantie</th:block>
+            </span><br/>
+            <span class="GrayBold">Disponibilitate</span><br/>
+            <span class="Blue" th:text="${detaliu.produs.disponibil} ? 'in stoc' : 'la comanda'"></span><br/><br/>
+        </p>
+        <div class="NoStock">
+            <input type="submit" value="Adauga in cos" disabled="disabled" title="Cosul de cumparaturi vine intr-o etapa urmatoare" />
+        </div>
+    </div>
+
+    <div class="Clear" style="height:5px"></div>
+
+    <div class="Information">
+        <br/>
+        <div class="Main">
+            <div class="Left">
+                <span class="Title">Descriere</span><br/><br/>
+                <div th:utext="${detaliu.produs.infoWeb}"></div>
+            </div>
+            <div class="Right">
+                <span class="Title">Specificatii</span><br/><br/>
+                <div th:if="${detaliu.detalii != null}" th:utext="${detaliu.detalii.spec}"></div>
+            </div>
+        </div>
+        <div class="Footer"></div>
+    </div>
+
+    <div class="Clear"></div><br/>
+
+    <a th:if="${detaliu.detalii != null and detaliu.detalii.hasPdf}"
+       th:href="@{${detaliu.detalii.pdf}}" target="_blank">
+        <img src="/images/products/pdf.jpg" alt="PDF" border="0" align="absmiddle" />
+        Deschide fisa tehnica completa (PDF)
+    </a>
+</div>
+
+<div class="Clear"></div>
+
+<div th:replace="~{fragments/chrome :: footer}"></div>
+
+</body>
+</html>

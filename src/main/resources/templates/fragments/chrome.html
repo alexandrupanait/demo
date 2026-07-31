@@ -31,8 +31,8 @@
             </a>
         </div>
         <div class="Search2">
-            <form th:action="@{/search}" id="SearchForm" method="post" name="SearchForm">
-                <input id="search_key" name="search_key" type="text" value="produse, solutii etc." />
+            <form th:action="@{/search}" id="SearchForm" method="get" name="SearchForm">
+                <input id="search_key" name="search_key" type="text" placeholder="produse, solutii etc." />
                 <input class="search_submit" name="commit" type="submit" value="cauta" />
             </form>
         </div>

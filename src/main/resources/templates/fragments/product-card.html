@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+    <th:block th:fragment="card(produs, pret)">
+        <div class="Content">
+            <div class="Name">
+                <h3><a th:href="@{/produse/{id}(id=${produs.id})}" th:text="${produs.numeAfisat}"></a></h3>
+                <h3 style="font-size:12px">Cod:&nbsp;<a th:href="@{/produse/{id}(id=${produs.id})}" th:text="${produs.cod}"></a>
+                    &nbsp; &nbsp; Producator:&nbsp;<span th:text="${produs.codProducator}"></span></h3>
+            </div>
+            <div class="Img">
+                <table><td align="center" style="width:142px; height: 142px;">
+                    <a th:href="@{/produse/{id}(id=${produs.id})}"><img th:alt="${produs.numeAfisat}" th:src="@{${produs.thumb}}" width="142px" /></a>
+                </td></table>
+            </div>
+            <div class="Info">
+                <p th:text="${#strings.abbreviate(produs.infoWeb ?: '', 80)}"></p>
+            </div>
+        </div>
+        <div class="BuyBox">
+            <p>
+                <span class="Price" th:text="|${pret} RON|"></span>
+                <br/>cu TVA<br/><br/>
+                <span class="GrayBold">Garantie</span><br/>
+                <span class="Blue">
+                    <th:block th:if="${produs.garantie != null and produs.garantie != 0}" th:text="|${produs.garantie} luni|"></th:block>
+                    <th:block th:unless="${produs.garantie != null and produs.garantie != 0}">fara garantie</th:block>
+                </span><br/>
+                <span class="GrayBold">Disponibilitate</span><br/>
+                <span class="Blue" th:text="${produs.disponibil} ? 'in stoc' : 'la comanda'"></span><br/><br/>
+            </p>
+            <div th:class="${produs.disponibil} ? 'Stock' : 'NoStock'">
+                <input type="submit" value="Adauga in cos" th:disabled="${!produs.disponibil}" />
+            </div>
+            <div class="Details">
+                <a th:href="@{/produse/{id}(id=${produs.id})}">Detalii &raquo;</a>
+            </div>
+        </div>
+    </th:block>
+</body>
+</html>

@@ -39,6 +39,13 @@ public class ProductFilterService {
         this.atributeProdusRepository = atributeProdusRepository;
     }
 
+    public SearchResult search(String query) {
+        List<StocuriSiteView> produse = stocuriRepository.searchByNameOrCode(ANONYMOUS_CLIENT, query);
+        Map<Integer, BigDecimal> pretRonById = produse.stream()
+                .collect(Collectors.toMap(StocuriSiteView::getId, StocuriSiteView::getPretRonAnonim));
+        return new SearchResult(produse, pretRonById);
+    }
+
     public ProductListingResult listProducts(Integer categorieId, ProductFilter filter) {
         List<StocuriSiteView> allInCategory = (categorieId == null)
                 ? stocuriRepository.findByIdclientAndOnlineTrueOrderByOrdineAsc(ANONYMOUS_CLIENT)
